@@ -210,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
         e.preventDefault();
         
         // Inputs
@@ -218,6 +218,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const emailInput = document.getElementById("user-email");
         const reasonSelect = document.getElementById("enquiry-reason");
         const messageText = document.getElementById("user-message");
+        const submitBtn = document.getElementById("submit-enquiry-btn");
+        const originalBtnText = submitBtn.textContent;
         
         let isValid = true;
         
@@ -249,24 +251,352 @@ document.addEventListener("DOMContentLoaded", () => {
             isValid = false;
         }
         
-        if (isValid) {
-            // Mock submission success
-            console.log("Form submitted with details:", {
-                name: nameInput.value.trim(),
-                email: emailInput.value.trim(),
-                reason: reasonSelect.value,
-                message: messageText.value.trim(),
-                file: fileInput.files.length > 0 ? fileInput.files[0].name : "None"
-            });
+        if (!isValid) return;
+
+        const resetSubmitBtn = () => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+        };
+
+        submitBtn.disabled = true;
+
+        if (reasonSelect.value === "appointment") {
+            submitBtn.textContent = "Preparing Secure Payment...";
             
-            // Hide the form and show success message
-            form.style.display = "none";
-            successBanner.style.display = "block";
-            
-            // Scroll to the success banner smoothly
-            successBanner.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            try {
+                // 1. Fetch public config (Key ID)
+                const configRes = await fetch("/api/config");
+                if (!configRes.ok) throw new Error("Could not fetch configuration");
+                const { key_id } = await configRes.json();
+                
+                // 2. Create order on backend (amount will be set by server from .env)
+                const orderRes = await fetch("/api/create-order", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ reason: "appointment" })
+                });
+                
+                if (!orderRes.ok) {
+                    const errorData = await orderRes.json();
+                    throw new Error(errorData.error || "Order creation failed");
+                }
+                const orderData = await orderRes.json();
+                
+                // 3. Configure Razorpay Standard Checkout
+                const options = {
+                    key: key_id,
+                    amount: orderData.amount,
+                    currency: orderData.currency,
+                    name: "Morya Multispeciality Hospital",
+                    description: "Appointment Booking Fee",
+                    order_id: orderData.order_id,
+                    handler: async function (response) {
+                        submitBtn.textContent = "Verifying & Booking...";
+                        try {
+                            const bookingData = {
+                                name: nameInput.value.trim(),
+                                email: emailInput.value.trim(),
+                                reason: reasonSelect.value,
+                                message: messageText.value.trim(),
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_order_id: response.razorpay_order_id,
+                                razorpay_signature: response.razorpay_signature
+                            };
+                            
+                            const bookRes = await fetch("/api/book-appointment", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify(bookingData)
+                            });
+                            
+                            const bookResult = await bookRes.json();
+                            if (bookRes.ok) {
+                                form.style.display = "none";
+                                successBanner.querySelector("h4").textContent = "Appointment Booked Successfully!";
+                                successBanner.querySelector("p").innerHTML = `Thank you, ${nameInput.value.trim()}. Your appointment has been confirmed. Payment ID: <strong>${response.razorpay_payment_id}</strong>. A confirmation email has been sent to you.`;
+                                successBanner.style.display = "block";
+                                successBanner.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                            } else {
+                                alert("Failed to book appointment: " + bookResult.error);
+                                resetSubmitBtn();
+                            }
+                        } catch (err) {
+                            console.error("Verification error:", err);
+                            alert("Payment successful, but verification failed. Please contact our support team.");
+                            resetSubmitBtn();
+                        }
+                    },
+                    prefill: {
+                        name: nameInput.value.trim(),
+                        email: emailInput.value.trim()
+                    },
+                    theme: {
+                        color: "#0f70b7" // hospital theme primary color
+                    },
+                    modal: {
+                        ondismiss: function () {
+                            alert("Payment modal closed. Payment is required to confirm the appointment.");
+                            resetSubmitBtn();
+                        }
+                    }
+                };
+                
+                const rzp = new Razorpay(options);
+                rzp.open();
+                
+            } catch (err) {
+                console.error("Payment init error:", err);
+                alert("Error initializing payment: " + err.message);
+                resetSubmitBtn();
+            }
+        } else {
+            // General enquiry (free)
+            submitBtn.textContent = "Sending Enquiry...";
+            try {
+                const enquiryData = {
+                    name: nameInput.value.trim(),
+                    email: emailInput.value.trim(),
+                    reason: reasonSelect.value,
+                    message: messageText.value.trim()
+                };
+                
+                const enqRes = await fetch("/api/submit-enquiry", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(enquiryData)
+                });
+                
+                const enqResult = await enqRes.json();
+                if (enqRes.ok) {
+                    form.style.display = "none";
+                    successBanner.querySelector("h4").textContent = "Enquiry Sent Successfully!";
+                    successBanner.querySelector("p").textContent = "Thank you for reaching out. We have received your enquiry and sent you a confirmation email. Our desk will contact you soon.";
+                    successBanner.style.display = "block";
+                    successBanner.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                } else {
+                    alert("Failed to submit enquiry: " + enqResult.error);
+                    resetSubmitBtn();
+                }
+            } catch (err) {
+                console.error("Enquiry submission error:", err);
+                alert("Error submitting enquiry. Please try again.");
+                resetSubmitBtn();
+            }
         }
     });
+
+    /* ==========================================
+       6b. DETAILED BOOKING FORM VALIDATION & PROCESS
+       ========================================== */
+    const bookingForm = document.getElementById("booking-form");
+    const bookingFileInput = document.getElementById("booking-attachment");
+    const bookingFileNameDisplay = document.getElementById("booking-file-name-text");
+    const bookingSuccessBanner = document.getElementById("booking-success-banner");
+
+    // Display selected attachment name
+    if (bookingFileInput) {
+        bookingFileInput.addEventListener("change", () => {
+            if (bookingFileInput.files.length > 0) {
+                bookingFileNameDisplay.textContent = bookingFileInput.files[0].name;
+                bookingFileNameDisplay.style.color = "var(--color-secondary)";
+            } else {
+                bookingFileNameDisplay.textContent = "No file chosen";
+                bookingFileNameDisplay.style.color = "var(--color-gray)";
+            }
+        });
+    }
+
+    if (bookingForm) {
+        bookingForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            // Inputs
+            const nameInput = document.getElementById("booking-name");
+            const phoneInput = document.getElementById("booking-phone");
+            const emailInput = document.getElementById("booking-email");
+            const ageInput = document.getElementById("booking-age");
+            const genderInput = document.getElementById("booking-gender");
+            const dateInput = document.getElementById("booking-date");
+            const slotInput = document.getElementById("booking-slot");
+            const doctorInput = document.getElementById("booking-doctor");
+            const messageInput = document.getElementById("booking-message");
+            const submitBtn = document.getElementById("submit-booking-btn");
+            const originalBtnText = submitBtn.innerHTML;
+
+            let isValid = true;
+
+            // Reset errors
+            bookingForm.querySelectorAll(".form-group").forEach(group => group.classList.remove("has-error"));
+
+            // 1. Name Check
+            if (nameInput.value.trim() === "") {
+                nameInput.closest(".form-group").classList.add("has-error");
+                isValid = false;
+            }
+
+            // 2. Phone Check (10 digit mobile regex)
+            const phonePattern = /^[6-9]\d{9}$/;
+            if (!phonePattern.test(phoneInput.value.trim())) {
+                phoneInput.closest(".form-group").classList.add("has-error");
+                isValid = false;
+            }
+
+            // 3. Email Check
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(emailInput.value.trim())) {
+                emailInput.closest(".form-group").classList.add("has-error");
+                isValid = false;
+            }
+
+            // 4. Age Check
+            const ageVal = parseInt(ageInput.value, 10);
+            if (isNaN(ageVal) || ageVal < 1 || ageVal > 120) {
+                ageInput.closest(".form-group").classList.add("has-error");
+                isValid = false;
+            }
+
+            // 5. Gender Check
+            if (genderInput.value === "") {
+                genderInput.closest(".form-group").classList.add("has-error");
+                isValid = false;
+            }
+
+            // 6. Date Check
+            if (dateInput.value === "") {
+                dateInput.closest(".form-group").classList.add("has-error");
+                isValid = false;
+            }
+
+            // 7. Time Slot Check
+            if (slotInput.value === "") {
+                slotInput.closest(".form-group").classList.add("has-error");
+                isValid = false;
+            }
+
+            // 8. Doctor Check
+            if (doctorInput.value === "") {
+                doctorInput.closest(".form-group").classList.add("has-error");
+                isValid = false;
+            }
+
+            // 9. Symptoms Check
+            if (messageInput.value.trim() === "") {
+                messageInput.closest(".form-group").classList.add("has-error");
+                isValid = false;
+            }
+
+            if (!isValid) {
+                // Scroll first error into view
+                const firstError = bookingForm.querySelector(".has-error");
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+                return;
+            }
+
+            const resetSubmitBtn = () => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            };
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Preparing Payment Gate...`;
+
+            try {
+                // A. Fetch config (Key ID)
+                const configRes = await fetch("/api/config");
+                if (!configRes.ok) throw new Error("Could not load backend configurations.");
+                const { key_id } = await configRes.json();
+
+                // B. Create Order
+                const orderRes = await fetch("/api/create-order", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ reason: "appointment" })
+                });
+
+                if (!orderRes.ok) {
+                    const errData = await orderRes.json();
+                    throw new Error(errData.error || "Order generation failed.");
+                }
+                const orderData = await orderRes.json();
+
+                // C. Initialize Checkout Modal
+                const options = {
+                    key: key_id,
+                    amount: orderData.amount,
+                    currency: orderData.currency,
+                    name: "Morya Multispeciality Hospital",
+                    description: "Appointment Booking Fee",
+                    order_id: orderData.order_id,
+                    handler: async function (response) {
+                        submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Finalizing Booking...`;
+                        try {
+                            const bookingData = {
+                                name: nameInput.value.trim(),
+                                phone: phoneInput.value.trim(),
+                                email: emailInput.value.trim(),
+                                age: ageInput.value.trim(),
+                                gender: genderInput.value,
+                                date: dateInput.value,
+                                slot: slotInput.value,
+                                doctor: doctorInput.value,
+                                message: messageInput.value.trim(),
+                                reason: "Book Appointment",
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_order_id: response.razorpay_order_id,
+                                razorpay_signature: response.razorpay_signature
+                            };
+
+                            const confirmRes = await fetch("/api/book-appointment", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify(bookingData)
+                            });
+
+                            const confirmResult = await confirmRes.json();
+                            if (confirmRes.ok) {
+                                bookingForm.style.display = "none";
+                                bookingSuccessBanner.querySelector(".success-text").innerHTML = 
+                                    `Dear <strong>${nameInput.value.trim()}</strong>, your appointment slot has been successfully booked with <strong>${doctorInput.options[doctorInput.selectedIndex].text}</strong> for <strong>${dateInput.value}</strong> during the <strong>${slotInput.options[slotInput.selectedIndex].text}</strong>.<br><br>Payment ID: <strong>${response.razorpay_payment_id}</strong>.`;
+                                bookingSuccessBanner.style.display = "block";
+                                bookingSuccessBanner.scrollIntoView({ behavior: "smooth", block: "center" });
+                            } else {
+                                alert("Failed to book appointment: " + confirmResult.error);
+                                resetSubmitBtn();
+                            }
+                        } catch (err) {
+                            console.error(err);
+                            alert("Payment succeeded but confirmation failed. Please contact reception with Payment ID: " + response.razorpay_payment_id);
+                            resetSubmitBtn();
+                        }
+                    },
+                    prefill: {
+                        name: nameInput.value.trim(),
+                        email: emailInput.value.trim(),
+                        contact: phoneInput.value.trim()
+                    },
+                    theme: {
+                        color: "#5c2008" // Burgundy primary theme color
+                    },
+                    modal: {
+                        ondismiss: function () {
+                            alert("Payment closed. Slot will not be confirmed until payment is processed.");
+                            resetSubmitBtn();
+                        }
+                    }
+                };
+
+                const rzp = new Razorpay(options);
+                rzp.open();
+
+            } catch (err) {
+                console.error(err);
+                alert("Error: " + err.message);
+                resetSubmitBtn();
+            }
+        });
+    }
 
     /* ==========================================
        7. ROBOT CHATBOT ASSISTANT

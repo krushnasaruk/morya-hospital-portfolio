@@ -78,10 +78,14 @@ app.use(express.static(__dirname));
  * Safely expose the public Razorpay Key ID to the frontend
  */
 app.get("/api/config", (req, res) => {
-  if (!process.env.RAZORPAY_KEY_ID) {
+  const disablePayments = process.env.DISABLE_PAYMENTS === "true";
+  if (!disablePayments && !process.env.RAZORPAY_KEY_ID) {
     return res.status(500).json({ error: "Razorpay Key ID not configured in server environment." });
   }
-  res.json({ key_id: process.env.RAZORPAY_KEY_ID });
+  res.json({ 
+    key_id: process.env.RAZORPAY_KEY_ID || "rzp_test_mock",
+    disable_payments: disablePayments
+  });
 });
 
 /**
@@ -365,28 +369,36 @@ app.post("/api/book-appointment", async (req, res) => {
       razorpay_signature 
     } = req.body;
 
-    if (!name || !email || !reason || !message || !razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
-      return res.status(400).json({ error: "Missing required booking or payment fields." });
+    const disablePayments = process.env.DISABLE_PAYMENTS === "true";
+    const payId = razorpay_payment_id || "MOCK_PAY_" + Date.now();
+    const orderId = razorpay_order_id || "MOCK_ORDER_" + Date.now();
+
+    if (!disablePayments) {
+      if (!name || !email || !reason || !message || !razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+        return res.status(400).json({ error: "Missing required booking or payment fields." });
+      }
+
+      // Verify payment signature
+      const hmac = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET);
+      hmac.update(razorpay_order_id + "|" + razorpay_payment_id);
+      const generated_signature = hmac.digest("hex");
+
+      if (generated_signature !== razorpay_signature) {
+        console.warn(`Payment signature verification failed. Generated: ${generated_signature}, Provided: ${razorpay_signature}`);
+        return res.status(400).json({ error: "Signature mismatch. Unverified payment." });
+      }
+
+      console.log(`Payment verified successfully for ${name}. Payment ID: ${payId}`);
+    } else {
+      console.log(`Payment bypassed (DISABLE_PAYMENTS=true) for patient: ${name}. Generated Payment ID: ${payId}`);
     }
-
-    // Verify payment signature
-    const hmac = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET);
-    hmac.update(razorpay_order_id + "|" + razorpay_payment_id);
-    const generated_signature = hmac.digest("hex");
-
-    if (generated_signature !== razorpay_signature) {
-      console.warn(`Payment signature verification failed. Generated: ${generated_signature}, Provided: ${razorpay_signature}`);
-      return res.status(400).json({ error: "Signature mismatch. Unverified payment." });
-    }
-
-    console.log(`Payment verified successfully for ${name}. Payment ID: ${razorpay_payment_id}`);
 
     // Send emails (Include all destructured patient details)
-    const emailSent = await sendNotificationEmails({ name, phone, email, age, gender, date, slot, doctor, reason, message }, razorpay_payment_id);
+    const emailSent = await sendNotificationEmails({ name, phone, email, age, gender, date, slot, doctor, reason, message }, payId);
 
     // Save to local flat-file database
     saveRecord("appointment", {
-      id: razorpay_payment_id,
+      id: payId,
       name,
       phone,
       email,
@@ -397,8 +409,8 @@ app.post("/api/book-appointment", async (req, res) => {
       doctor,
       reason,
       message,
-      razorpay_payment_id,
-      razorpay_order_id
+      razorpay_payment_id: payId,
+      razorpay_order_id: orderId
     });
 
     res.status(200).json({ 

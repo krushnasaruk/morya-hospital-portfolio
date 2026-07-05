@@ -629,10 +629,49 @@ document.addEventListener("DOMContentLoaded", () => {
             submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Preparing Payment Gate...`;
 
             try {
-                // A. Fetch config (Key ID)
+                // A. Fetch config (Key ID + bypass check)
                 const configRes = await fetch("/api/config");
                 if (!configRes.ok) throw new Error("Could not load backend configurations.");
-                const { key_id } = await configRes.json();
+                const { key_id, disable_payments } = await configRes.json();
+
+                if (disable_payments) {
+                    submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Submitting Booking...`;
+                    const mockPaymentId = "MOCK_PAY_" + Date.now();
+                    const bookingData = {
+                        name: nameInput.value.trim(),
+                        phone: phoneInput.value.trim(),
+                        email: emailInput.value.trim(),
+                        age: ageInput.value.trim(),
+                        gender: genderInput.value,
+                        date: dateInput.value,
+                        slot: slotInput.value,
+                        doctor: doctorInput.value,
+                        message: messageInput.value.trim(),
+                        reason: "Book Appointment",
+                        razorpay_payment_id: mockPaymentId,
+                        razorpay_order_id: "MOCK_ORDER_" + Date.now(),
+                        razorpay_signature: "MOCK_SIGNATURE"
+                    };
+
+                    const confirmRes = await fetch("/api/book-appointment", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(bookingData)
+                    });
+
+                    const confirmResult = await confirmRes.json();
+                    if (confirmRes.ok) {
+                        bookingForm.style.display = "none";
+                        bookingSuccessBanner.querySelector(".success-text").innerHTML = 
+                            `Dear <strong>${nameInput.value.trim()}</strong>, your appointment slot has been successfully booked with <strong>${doctorInput.options[doctorInput.selectedIndex].text}</strong> for <strong>${dateInput.value}</strong> during the <strong>${slotInput.options[slotInput.selectedIndex].text}</strong>.<br><br>Booking Reference: <strong>${mockPaymentId}</strong> (Payment Bypassed).`;
+                        bookingSuccessBanner.style.display = "block";
+                        bookingSuccessBanner.scrollIntoView({ behavior: "smooth", block: "center" });
+                    } else {
+                        alert("Failed to book appointment: " + confirmResult.error);
+                        resetSubmitBtn();
+                    }
+                    return;
+                }
 
                 // B. Create Order
                 const orderRes = await fetch("/api/create-order", {

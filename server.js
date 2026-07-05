@@ -73,6 +73,11 @@ app.use(express.json());
 // Serve static frontend files
 app.use(express.static(__dirname));
 
+// Route mapping for clean Admin URL
+app.get("/admin", (req, res) => {
+  res.sendFile(path.join(__dirname, "admin.html"));
+});
+
 /**
  * GET /api/config
  * Safely expose the public Razorpay Key ID to the frontend

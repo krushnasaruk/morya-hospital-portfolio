@@ -464,10 +464,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Dynamic Language Switcher Integration (Powered by Google Translate)
+    // Dynamic Language Switcher Integration (Powered by Google Translate Cookie + Selector Triggers)
     const langSelector = document.getElementById("lang-selector");
 
+    const setTranslateCookie = (langCode) => {
+        if (langCode === 'en') {
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + window.location.hostname + "; path=/;";
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=." + window.location.hostname + "; path=/;";
+        } else {
+            document.cookie = "googtrans=/en/" + langCode + "; path=/";
+            document.cookie = "googtrans=/en/" + langCode + "; domain=" + window.location.hostname + "; path=/";
+            document.cookie = "googtrans=/en/" + langCode + "; domain=." + window.location.hostname + "; path=/";
+        }
+    };
+
     const triggerGoogleTranslate = (langCode) => {
+        setTranslateCookie(langCode);
         const gtSelect = document.querySelector('.goog-te-combo');
         if (gtSelect) {
             gtSelect.value = langCode;
@@ -476,21 +489,31 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     if (langSelector) {
+        // Initialize immediately based on saved selection (sets cookie before Google Translate script runs)
+        const savedLang = localStorage.getItem("hospital_lang") || "en";
+        langSelector.value = savedLang;
+        setTranslateCookie(savedLang);
+
         langSelector.addEventListener("change", (e) => {
             const selectedLang = e.target.value;
             localStorage.setItem("hospital_lang", selectedLang);
             triggerGoogleTranslate(selectedLang);
+            
+            // If Google Translate hasn't fully loaded yet, reload the page to apply the cookie immediately
+            const gtSelect = document.querySelector('.goog-te-combo');
+            if (!gtSelect) {
+                window.location.reload();
+            }
         });
 
-        // Apply saved language choice when Google Translate dropdown finishes loading
+        // Trigger selection once combo box renders (catches cases where script loads after DOM init)
         const checkGT = setInterval(() => {
             const gtSelect = document.querySelector('.goog-te-combo');
             if (gtSelect) {
                 clearInterval(checkGT);
-                const savedLang = localStorage.getItem("hospital_lang") || "en";
-                langSelector.value = savedLang;
-                if (savedLang !== 'en') {
-                    triggerGoogleTranslate(savedLang);
+                const currentLang = localStorage.getItem("hospital_lang") || "en";
+                if (currentLang !== 'en') {
+                    triggerGoogleTranslate(currentLang);
                 }
             }
         }, 150);

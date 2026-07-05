@@ -2647,6 +2647,15 @@ a {
 /* ==========================================================================
    GOOGLE TRANSLATE HIDING OVERRIDES
    ========================================================================== */
+#google_translate_element {
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+}
+
 .goog-te-banner-frame.skiptranslate,
 .goog-te-banner-frame,
 #goog-gt-tt,
@@ -2670,13 +2679,5 @@ body {
     background-color: transparent !important;
     border: none !important;
     box-shadow: none !important;
-}
-
-#google_translate_element {
-    display: none !important;
-}
-
-.skiptranslate {
-    display: none !important;
 }
 

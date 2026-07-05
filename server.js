@@ -4,9 +4,61 @@ const cors = require("cors");
 const crypto = require("crypto");
 const Razorpay = require("razorpay");
 const nodemailer = require("nodemailer");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Flat-file Database Configuration
+const DB_FILE = path.join(__dirname, "data_records.json");
+
+const initializeDb = () => {
+  if (!fs.existsSync(DB_FILE)) {
+    fs.writeFileSync(DB_FILE, JSON.stringify({ appointments: [], enquiries: [] }, null, 2));
+  }
+};
+
+const getDbRecords = () => {
+  initializeDb();
+  try {
+    const data = fs.readFileSync(DB_FILE, "utf8");
+    return JSON.parse(data);
+  } catch (e) {
+    console.error("Error reading db file:", e);
+    return { appointments: [], enquiries: [] };
+  }
+};
+
+const saveRecord = (type, record) => {
+  initializeDb();
+  try {
+    const records = getDbRecords();
+    record.timestamp = new Date().toISOString();
+    if (type === "appointment") {
+      records.appointments.push(record);
+    } else {
+      records.enquiries.push(record);
+    }
+    fs.writeFileSync(DB_FILE, JSON.stringify(records, null, 2));
+    console.log(`Saved new ${type} record to local database.`);
+    return true;
+  } catch (e) {
+    console.error(`Error saving ${type} record to db:`, e);
+    return false;
+  }
+};
+
+// Admin Session Token Configuration
+const ADMIN_TOKEN = "MoryaHospitalAdminSecureTokenSession2026";
+
+const verifyAdminToken = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader && authHeader === `Bearer ${ADMIN_TOKEN}`) {
+    return next();
+  }
+  return res.status(401).json({ error: "Unauthorized: Invalid or missing token." });
+};
 
 // Initialize Razorpay
 const razorpay = new Razorpay({
@@ -299,7 +351,13 @@ app.post("/api/book-appointment", async (req, res) => {
   try {
     const { 
       name, 
+      phone,
       email, 
+      age,
+      gender,
+      date,
+      slot,
+      doctor,
       reason, 
       message, 
       razorpay_order_id, 
@@ -323,8 +381,25 @@ app.post("/api/book-appointment", async (req, res) => {
 
     console.log(`Payment verified successfully for ${name}. Payment ID: ${razorpay_payment_id}`);
 
-    // Send emails
-    const emailSent = await sendNotificationEmails({ name, email, reason, message }, razorpay_payment_id);
+    // Send emails (Include all destructured patient details)
+    const emailSent = await sendNotificationEmails({ name, phone, email, age, gender, date, slot, doctor, reason, message }, razorpay_payment_id);
+
+    // Save to local flat-file database
+    saveRecord("appointment", {
+      id: razorpay_payment_id,
+      name,
+      phone,
+      email,
+      age,
+      gender,
+      date,
+      slot,
+      doctor,
+      reason,
+      message,
+      razorpay_payment_id,
+      razorpay_order_id
+    });
 
     res.status(200).json({ 
       status: "success", 
@@ -354,6 +429,14 @@ app.post("/api/submit-enquiry", async (req, res) => {
     // Send emails
     const emailSent = await sendNotificationEmails({ name, email, reason, message });
 
+    // Save to local flat-file database
+    saveRecord("enquiry", {
+      name,
+      email,
+      reason,
+      message
+    });
+
     res.status(200).json({ 
       status: "success", 
       message: "Enquiry submitted and emails sent.", 
@@ -362,6 +445,52 @@ app.post("/api/submit-enquiry", async (req, res) => {
   } catch (error) {
     console.error("Enquiry Error:", error);
     res.status(500).json({ error: "Enquiry submission failed.", details: error.message });
+  }
+});
+
+/**
+ * POST /api/admin/login
+ * Verify admin credentials and issue temporary session token
+ */
+app.post("/api/admin/login", (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const expectedUser = process.env.ADMIN_USER || "admin";
+    const expectedPass = process.env.ADMIN_PASS || "morya@admin123";
+
+    if (username === expectedUser && password === expectedPass) {
+      res.status(200).json({ status: "success", token: ADMIN_TOKEN });
+    } else {
+      res.status(401).json({ error: "Invalid username or password." });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Login process failed." });
+  }
+});
+
+/**
+ * GET /api/admin/appointments
+ * Fetch list of all confirmed appointments (requires authorization token)
+ */
+app.get("/api/admin/appointments", verifyAdminToken, (req, res) => {
+  try {
+    const records = getDbRecords();
+    res.status(200).json({ appointments: records.appointments });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to load appointments." });
+  }
+});
+
+/**
+ * GET /api/admin/enquiries
+ * Fetch list of all enquiries (requires authorization token)
+ */
+app.get("/api/admin/enquiries", verifyAdminToken, (req, res) => {
+  try {
+    const records = getDbRecords();
+    res.status(200).json({ enquiries: records.enquiries });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to load enquiries." });
   }
 });
 

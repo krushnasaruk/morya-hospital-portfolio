@@ -3,6 +3,180 @@
    ========================================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    /* ==========================================
+       TRANSLATIONS DICTIONARY (EN / HI / MR)
+       ========================================== */
+    const translations = {
+        en: {
+            btn_appointment: "APPOINTMENT",
+            nav_home: "Home",
+            nav_team: "Team",
+            nav_founders: "Our Founders",
+            nav_specialists: "Specialist Doctors",
+            nav_departments: "Departments",
+            nav_medicine: "General Medicine",
+            nav_surgery: "General Surgery",
+            nav_gyn: "Obstetric & Gynaecology",
+            nav_facilities: "Facilities",
+            nav_posts: "Posts",
+            nav_camps: "Health Camps",
+            nav_events: "Hospital Events",
+            nav_reviews: "Reviews",
+            btn_book_consultation: "BOOK CONSULTATION",
+            btn_call_emergency: "CALL EMERGENCY",
+            booking_tag: "SECURE BOOKING",
+            booking_title: "Book Doctor Appointment",
+            booking_subtitle: "Fill in the patient's medical details below. An appointment slot fee of Rs. 250 is required to confirm the slot.",
+            booking_lbl_name: "Patient's Full Name",
+            booking_err_name: "Please enter the patient's name",
+            booking_lbl_phone: "Phone Number",
+            booking_err_phone: "Please enter a valid 10-digit mobile number",
+            booking_lbl_email: "Email Address",
+            booking_err_email: "Please enter a valid email address",
+            booking_lbl_age: "Patient's Age",
+            booking_err_age: "Please enter a valid age (1-120)",
+            booking_lbl_gender: "Gender",
+            booking_opt_gender_default: "Select Gender",
+            booking_opt_male: "Male",
+            booking_opt_female: "Female",
+            booking_opt_other: "Other",
+            booking_err_gender: "Please select a gender",
+            booking_lbl_date: "Preferred Date",
+            booking_err_date: "Please choose an appointment date",
+            booking_lbl_slot: "Preferred Shift Slot",
+            booking_opt_slot_default: "Select Preferred Slot",
+            booking_opt_morning: "Morning OPD (10:00 AM - 1:00 PM)",
+            booking_opt_evening: "Evening OPD (5:00 PM - 8:00 PM)",
+            booking_err_slot: "Please select a time slot",
+            booking_lbl_doctor: "Consulting Doctor",
+            booking_opt_doctor_default: "Choose Doctor",
+            booking_opt_rashmi: "Dr. Rashmi Patil (Obstetric & Gynaecology)",
+            booking_opt_vaibhav: "Dr. Vaibhav Patil (General Surgeon)",
+            booking_opt_general: "General Medicine OPD Physician",
+            booking_err_doctor: "Please choose a doctor",
+            booking_lbl_message: "Symptoms / Medical Concerns",
+            booking_err_message: "Please describe your medical concerns",
+            booking_lbl_attachment: "Upload Previous Prescriptions / Reports (Optional)",
+            booking_btn_attachment: "Add Document",
+            booking_txt_no_file: "No file chosen",
+            booking_btn_submit: "PAY RS. 250 & BOOK APPOINTMENT",
+            booking_success_title: "Appointment Confirmed!",
+            booking_success_note: "A detailed receipt and confirmation email has been dispatched to your email address. Please present it at the hospital reception."
+        },
+        hi: {
+            btn_appointment: "अपॉइंटमेंट",
+            nav_home: "होम",
+            nav_team: "टीम",
+            nav_founders: "हमारे संस्थापक",
+            nav_specialists: "विशेषज्ञ डॉक्टर",
+            nav_departments: "विभाग",
+            nav_medicine: "सामान्य चिकित्सा",
+            nav_surgery: "सामान्य सर्जरी",
+            nav_gyn: "प्रसूति एवं स्त्री रोग",
+            nav_facilities: "सुविधाएं",
+            nav_posts: "पोस्ट",
+            nav_camps: "स्वास्थ्य शिविर",
+            nav_events: "अस्पताल के कार्यक्रम",
+            nav_reviews: "समीक्षाएं",
+            btn_book_consultation: "परामर्श बुक करें",
+            btn_call_emergency: "आपातकालीन कॉल",
+            booking_tag: "सुरक्षित बुकिंग",
+            booking_title: "डॉक्टर अपॉइंटमेंट बुक करें",
+            booking_subtitle: "कृपया नीचे मरीज का चिकित्सा विवरण भरें। स्लॉट की पुष्टि के लिए 250 रुपये का शुल्क आवश्यक है।",
+            booking_lbl_name: "मरीज का पूरा नाम",
+            booking_err_name: "कृपया मरीज का नाम दर्ज करें",
+            booking_lbl_phone: "फ़ोन नंबर",
+            booking_err_phone: "कृपया एक वैध 10-अंकीय मोबाइल नंबर दर्ज करें",
+            booking_lbl_email: "ईमेल पता",
+            booking_err_email: "कृपया एक वैध ईमेल पता दर्ज करें",
+            booking_lbl_age: "मरीज की उम्र",
+            booking_err_age: "कृपया एक वैध उम्र दर्ज करें (1-120)",
+            booking_lbl_gender: "लिंग",
+            booking_opt_gender_default: "लिंग चुनें",
+            booking_opt_male: "पुरुष",
+            booking_opt_female: "महिला",
+            booking_opt_other: "अन्य",
+            booking_err_gender: "कृपया लिंग का चयन करें",
+            booking_lbl_date: "पसंदीदा तारीख",
+            booking_err_date: "कृपया अपॉइंटमेंट की तारीख चुनें",
+            booking_lbl_slot: "पसंदीदा समय स्लॉट",
+            booking_opt_slot_default: "पसंदीदा स्लॉट चुनें",
+            booking_opt_morning: "सुबह की ओपीडी (10:00 AM - 1:00 PM)",
+            booking_opt_evening: "शाम की ओपीडी (5:00 PM - 8:00 PM)",
+            booking_err_slot: "कृपया समय स्लॉट चुनें",
+            booking_lbl_doctor: "परामर्शदाता डॉक्टर",
+            booking_opt_doctor_default: "डॉक्टर चुनें",
+            booking_opt_rashmi: "डॉ. रश्मि पाटिल (प्रसूति एवं स्त्री रोग)",
+            booking_opt_vaibhav: "डॉ. वैभव पाटिल (सामान्य सर्जन)",
+            booking_opt_general: "सामान्य चिकित्सा ओपीडी डॉक्टर",
+            booking_err_doctor: "कृपया डॉक्टर चुनें",
+            booking_lbl_message: "लक्षण / चिकित्सा संबंधी चिंताएं",
+            booking_err_message: "कृपया अपनी चिकित्सा चिंताओं का वर्णन करें",
+            booking_lbl_attachment: "पिछला पर्चा / रिपोर्ट अपलोड करें (वैकल्पिक)",
+            booking_btn_attachment: "दस्तावेज़ जोड़ें",
+            booking_txt_no_file: "कोई फ़ाइल नहीं चुनी गई",
+            booking_btn_submit: "250 रुपये भुगतान करें और अपॉइंटमेंट बुक करें",
+            booking_success_title: "अपॉइंटमेंट की पुष्टि हो गई!",
+            booking_success_note: "आपके ईमेल पते पर एक विस्तृत रसीद और पुष्टि ईमेल भेजा गया है। कृपया इसे अस्पताल के रिसेप्शन पर दिखाएं।"
+        },
+        mr: {
+            btn_appointment: "अपॉइंटमेंट",
+            nav_home: "होम",
+            nav_team: "टीम",
+            nav_founders: "आमचे संस्थापक",
+            nav_specialists: "तज्ज्ञ डॉक्टर",
+            nav_departments: "विभाग",
+            nav_medicine: "सामान्य औषधोपचार",
+            nav_surgery: "सामान्य शस्त्रक्रिया",
+            nav_gyn: "प्रसूती आणि स्त्रीरोग",
+            nav_facilities: "सुविधा",
+            nav_posts: "पोस्ट",
+            nav_camps: "आरोग्य शिबिरे",
+            nav_events: "रुग्णालयातील कार्यक्रम",
+            nav_reviews: "अभिप्राय",
+            btn_book_consultation: "सल्लामसलत बुक करा",
+            btn_call_emergency: "आपत्कालीन कॉल",
+            booking_tag: "सुरक्षित बुकिंग",
+            booking_title: "डॉक्टर अपॉइंटमेंट बुक करा",
+            booking_subtitle: "कृपया खाली रुग्णाची वैद्यकीय माहिती भरा. स्लॉट निश्चित करण्यासाठी 250 रुपयांचे शुल्क आवश्यक आहे.",
+            booking_lbl_name: "रुग्णाचे पूर्ण नाव",
+            booking_err_name: "कृपया रुग्णाचे नाव प्रविष्ट करा",
+            booking_lbl_phone: "फोन नंबर",
+            booking_err_phone: "कृपया वैध 10-अंकी मोबाईल नंबर प्रविष्ट करा",
+            booking_lbl_email: "ईमेल पत्ता",
+            booking_err_email: "कृपया वैध ईमेल पत्ता प्रविष्ट करा",
+            booking_lbl_age: "रुग्णाचे वय",
+            booking_err_age: "कृपया वैध वय प्रविष्ट करा (1-120)",
+            booking_lbl_gender: "लिंग",
+            booking_opt_gender_default: "लिंग निवडा",
+            booking_opt_male: "पुरुष",
+            booking_opt_female: "महिला",
+            booking_opt_other: "इतर",
+            booking_err_gender: "कृपया लिंग निवडा",
+            booking_lbl_date: "पसंतीची तारीख",
+            booking_err_date: "कृपया अपॉइंटमेंटची तारीख निवडा",
+            booking_lbl_slot: "पसंतीची वेळ स्लॉट",
+            booking_opt_slot_default: "पसंतीची स्लॉट निवडा",
+            booking_opt_morning: "सकाळची ओपीडी (10:00 AM - 1:00 PM)",
+            booking_opt_evening: "संध्याकाळची ओपीडी (5:00 PM - 8:00 PM)",
+            booking_err_slot: "कृपया वेळ स्लॉट निवडा",
+            booking_lbl_doctor: "सल्लागार डॉक्टर",
+            booking_opt_doctor_default: "डॉक्टर निवडा",
+            booking_opt_rashmi: "डॉ. रश्मी पाटील (प्रसूती आणि स्त्रीरोग)",
+            booking_opt_vaibhav: "डॉ. वैभव पाटील (सामान्य सर्जन)",
+            booking_opt_general: "सामान्य औषधोपचार ओपीडी डॉक्टर",
+            booking_err_doctor: "कृपया डॉक्टर निवडा",
+            booking_lbl_message: "लक्षणे / वैद्यकीय समस्या",
+            booking_err_message: "कृपया आपल्या वैद्यकीय समस्यांचे वर्णन करा",
+            booking_lbl_attachment: "मागील प्रिस्क्रिप्शन / रिपोर्ट अपलोड करा (पर्यायी)",
+            booking_btn_attachment: "दस्तऐवज जोडा",
+            booking_txt_no_file: "कोणतीही फाईल निवडली नाही",
+            booking_btn_submit: "250 रुपये भरा आणि अपॉइंटमेंट बुक करा",
+            booking_success_title: "अपॉइंटमेंट निश्चित झाली!",
+            booking_success_note: "एक तपशीलवार पावती आणि पुष्टीकरण ईमेल आपल्या ईमेल पत्त्यावर पाठविला गेला आहे. कृपया तो रुग्णालय रिसेप्शनवर दाखवा."
+        }
+    };
     
     /* ==========================================
        1. STICKY NAVBAR & SCROLL TO TOP
@@ -386,12 +560,110 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* ==========================================
-       6b. DETAILED BOOKING FORM VALIDATION & PROCESS
+       6b. DETAILED BOOKING FORM VALIDATION & PROCESS (MODAL CONTROL)
        ========================================== */
+    const bookingModal = document.getElementById("appointment-booking-modal");
+    const openModalBtn = document.getElementById("open-booking-modal-btn");
+    const closeModalBtn = document.getElementById("close-booking-modal-btn");
+    const openModalTriggers = document.querySelectorAll(".open-booking-modal-trigger");
+
     const bookingForm = document.getElementById("booking-form");
     const bookingFileInput = document.getElementById("booking-attachment");
     const bookingFileNameDisplay = document.getElementById("booking-file-name-text");
     const bookingSuccessBanner = document.getElementById("booking-success-banner");
+
+    const openBookingModal = () => {
+        if (bookingModal) {
+            bookingModal.classList.add("open");
+            document.body.style.overflow = "hidden";
+        }
+    };
+
+    const closeBookingModal = () => {
+        if (bookingModal) {
+            bookingModal.classList.remove("open");
+            document.body.style.overflow = "";
+            
+            // If booking was successful, reset overlay for next use
+            if (bookingSuccessBanner && bookingSuccessBanner.style.display === "block") {
+                if (bookingForm) bookingForm.reset();
+                if (bookingForm) bookingForm.style.display = "block";
+                bookingSuccessBanner.style.display = "none";
+                if (bookingFileNameDisplay) {
+                    bookingFileNameDisplay.textContent = "No file chosen";
+                    bookingFileNameDisplay.style.color = "var(--color-gray)";
+                }
+            }
+        }
+    };
+
+    if (openModalBtn) {
+        openModalBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            openBookingModal();
+        });
+    }
+
+    if (openModalTriggers) {
+        openModalTriggers.forEach(trigger => {
+            trigger.addEventListener("click", (e) => {
+                e.preventDefault();
+                openBookingModal();
+            });
+        });
+    }
+
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            closeBookingModal();
+        });
+    }
+
+    if (bookingModal) {
+        bookingModal.addEventListener("click", (e) => {
+            if (e.target === bookingModal) {
+                closeBookingModal();
+            }
+        });
+    }
+
+    // Dynamic Language Switcher Integration
+    const langSelector = document.getElementById("lang-selector");
+
+    const translatePage = (lang) => {
+        document.querySelectorAll("[data-translate]").forEach(element => {
+            const key = element.getAttribute("data-translate");
+            if (translations[lang] && translations[lang][key]) {
+                if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
+                    element.placeholder = translations[lang][key];
+                } else if (element.tagName === "OPTION") {
+                    element.textContent = translations[lang][key];
+                } else {
+                    const icon = element.querySelector("i");
+                    if (icon) {
+                        element.innerHTML = "";
+                        element.appendChild(icon);
+                        element.appendChild(document.createTextNode(" " + translations[lang][key]));
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            }
+        });
+    };
+
+    if (langSelector) {
+        const savedLang = localStorage.getItem("hospital_lang") || "en";
+        langSelector.value = savedLang;
+        translatePage(savedLang);
+
+        langSelector.addEventListener("change", (e) => {
+            const selectedLang = e.target.value;
+            localStorage.setItem("hospital_lang", selectedLang);
+            translatePage(selectedLang);
+        });
+    }
 
     // Display selected attachment name
     if (bookingFileInput) {

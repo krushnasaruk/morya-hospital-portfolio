@@ -29,8 +29,16 @@
                 <a href="mailto:moryahospital@gmail.com"><i class="fa-solid fa-envelope"></i> moryahospital@gmail.com</a>
             </div>
             <div class="top-actions">
-                <a href="https://razorpay.me/@krushnapralhadsaruk" target="_blank" class="btn btn-top-payment" id="pay-online-btn"><i class="fa-solid fa-credit-card"></i> PAY ONLINE</a>
-                <a href="#appointment-booking-section" class="btn btn-top-appointment">APPOINTMENT</a>
+                <!-- Multi-Language Selector Dropdown -->
+                <div class="lang-selector-wrapper">
+                    <i class="fa-solid fa-globe"></i>
+                    <select id="lang-selector" class="lang-select" aria-label="Select Language">
+                        <option value="en">English</option>
+                        <option value="hi">हिन्दी</option>
+                        <option value="mr">मराठी</option>
+                    </select>
+                </div>
+                <button class="btn btn-top-appointment" id="open-booking-modal-btn" data-translate="btn_appointment">APPOINTMENT</button>
             </div>
         </div>
     </div>
@@ -67,32 +75,31 @@
 
             <!-- Navigation Links -->
             <ul class="nav-links" id="nav-links">
-                <li><a href="#" class="nav-link active">Home</a></li>
+                <li><a href="#" class="nav-link active" data-translate="nav_home">Home</a></li>
                 <li class="dropdown">
-                    <a href="#founders" class="nav-link">Team <i class="fa-solid fa-chevron-down"></i></a>
+                    <a href="#founders" class="nav-link"><span data-translate="nav_team">Team</span> <i class="fa-solid fa-chevron-down"></i></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#founders">Our Founders</a></li>
-                        <li><a href="#founders">Specialist Doctors</a></li>
+                        <li><a href="#founders" data-translate="nav_founders">Our Founders</a></li>
+                        <li><a href="#founders" data-translate="nav_specialists">Specialist Doctors</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#departments" class="nav-link">Departments <i class="fa-solid fa-chevron-down"></i></a>
+                    <a href="#departments" class="nav-link"><span data-translate="nav_departments">Departments</span> <i class="fa-solid fa-chevron-down"></i></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#departments">General Medicine</a></li>
-                        <li><a href="#departments">General Surgery</a></li>
-                        <li><a href="#departments">Obstetric & Gynaecology</a></li>
+                        <li><a href="#departments" data-translate="nav_medicine">General Medicine</a></li>
+                        <li><a href="#departments" data-translate="nav_surgery">General Surgery</a></li>
+                        <li><a href="#departments" data-translate="nav_gyn">Obstetric & Gynaecology</a></li>
                     </ul>
                 </li>
-                <li><a href="#facilities" class="nav-link">Facilities</a></li>
+                <li><a href="#facilities" class="nav-link" data-translate="nav_facilities">Facilities</a></li>
                 <li class="dropdown">
-                    <a href="#gallery" class="nav-link">Posts <i class="fa-solid fa-chevron-down"></i></a>
+                    <a href="#gallery" class="nav-link"><span data-translate="nav_posts">Posts</span> <i class="fa-solid fa-chevron-down"></i></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#gallery">Health Camps</a></li>
-                        <li><a href="#gallery">Hospital Events</a></li>
+                        <li><a href="#gallery" data-translate="nav_camps">Health Camps</a></li>
+                        <li><a href="#gallery" data-translate="nav_events">Hospital Events</a></li>
                     </ul>
                 </li>
-                <li><a href="#reviews" class="nav-link">Reviews</a></li>
-                <li><a href="https://razorpay.me/@krushnapralhadsaruk" target="_blank" class="nav-link"><i class="fa-solid fa-credit-card" style="font-size: 0.8rem;"></i> Pay Online</a></li>
+                <li><a href="#reviews" class="nav-link" data-translate="nav_reviews">Reviews</a></li>
             </ul>
         </div>
     </nav>
@@ -152,8 +159,8 @@
                         <h1 class="slide-title">24x7 Critical Care Services</h1>
                         <p class="slide-desc">Equipped with state-of-the-art life support systems, ventilators, and dialysis machines. Our dedicated trauma specialists are available 24/7 for any urgent interventions.</p>
                         <div class="slide-actions">
-                            <a href="#appointment-booking-section" class="btn btn-primary">BOOK CONSULTATION</a>
-                            <a href="tel:+917720941777" class="btn btn-secondary"><i class="fa-solid fa-phone"></i> CALL EMERGENCY</a>
+                            <button class="btn btn-primary open-booking-modal-trigger" data-translate="btn_book_consultation">BOOK CONSULTATION</button>
+                            <a href="tel:+917720941777" class="btn btn-secondary"><i class="fa-solid fa-phone"></i> <span data-translate="btn_call_emergency">CALL EMERGENCY</span></a>
                         </div>
                     </div>
                     <div class="slide-image-container">
@@ -179,138 +186,139 @@
         </div>
     </section>
 
-    <!-- APPOINTMENT BOOKING SECTION -->
-    <section class="booking-section" id="appointment-booking-section">
-        <div class="container">
-            <div class="section-header text-center">
-                <div class="icon-title-wrapper">
-                    <i class="fa-solid fa-calendar-check section-icon"></i>
-                </div>
-                <h4 class="section-tag">SECURE BOOKING</h4>
-                <h2 class="section-title text-dark">Book Doctor Appointment</h2>
-                <div class="accent-line"></div>
-                <p class="section-subtitle">Fill in the patient's medical details below. An appointment slot fee of Rs. 250 is required to confirm the slot.</p>
-            </div>
-
+    <!-- APPOINTMENT BOOKING MODAL -->
+    <div class="booking-modal-overlay" id="appointment-booking-modal" style="display: none;">
+        <div class="booking-modal-container">
+            <button class="booking-modal-close" id="close-booking-modal-btn" aria-label="Close modal">&times;</button>
             <div class="booking-card">
+                <div class="section-header text-center">
+                    <div class="icon-title-wrapper">
+                        <i class="fa-solid fa-calendar-check section-icon"></i>
+                    </div>
+                    <h4 class="section-tag" data-translate="booking_tag">SECURE BOOKING</h4>
+                    <h2 class="section-title text-dark" data-translate="booking_title">Book Doctor Appointment</h2>
+                    <div class="accent-line"></div>
+                    <p class="section-subtitle" data-translate="booking_subtitle">Fill in the patient's medical details below. An appointment slot fee of Rs. 250 is required to confirm the slot.</p>
+                </div>
+                
                 <form id="booking-form" novalidate>
                     <div class="booking-form-grid">
                         <!-- Patient Name -->
                         <div class="form-group">
-                            <label for="booking-name" class="booking-field-label">Patient's Full Name <span class="required-star">*</span></label>
+                            <label for="booking-name" class="booking-field-label" data-translate="booking_lbl_name">Patient's Full Name <span class="required-star">*</span></label>
                             <div class="input-icon-wrapper">
                                 <i class="fa-solid fa-user input-icon"></i>
                                 <input type="text" id="booking-name" placeholder="Enter patient's name" required class="booking-input">
                             </div>
-                            <span class="error-msg" id="booking-name-error">Please enter the patient's name</span>
+                            <span class="error-msg" id="booking-name-error" data-translate="booking_err_name">Please enter the patient's name</span>
                         </div>
 
                         <!-- Phone Number -->
                         <div class="form-group">
-                            <label for="booking-phone" class="booking-field-label">Phone Number <span class="required-star">*</span></label>
+                            <label for="booking-phone" class="booking-field-label" data-translate="booking_lbl_phone">Phone Number <span class="required-star">*</span></label>
                             <div class="input-icon-wrapper">
                                 <i class="fa-solid fa-phone input-icon"></i>
                                 <input type="tel" id="booking-phone" placeholder="Enter contact number" required class="booking-input">
                             </div>
-                            <span class="error-msg" id="booking-phone-error">Please enter a valid 10-digit mobile number</span>
+                            <span class="error-msg" id="booking-phone-error" data-translate="booking_err_phone">Please enter a valid 10-digit mobile number</span>
                         </div>
 
                         <!-- Email Address -->
                         <div class="form-group">
-                            <label for="booking-email" class="booking-field-label">Email Address <span class="required-star">*</span></label>
+                            <label for="booking-email" class="booking-field-label" data-translate="booking_lbl_email">Email Address <span class="required-star">*</span></label>
                             <div class="input-icon-wrapper">
                                 <i class="fa-solid fa-envelope input-icon"></i>
                                 <input type="email" id="booking-email" placeholder="Enter email address" required class="booking-input">
                             </div>
-                            <span class="error-msg" id="booking-email-error">Please enter a valid email address</span>
+                            <span class="error-msg" id="booking-email-error" data-translate="booking_err_email">Please enter a valid email address</span>
                         </div>
 
                         <!-- Patient Age -->
                         <div class="form-group">
-                            <label for="booking-age" class="booking-field-label">Patient's Age <span class="required-star">*</span></label>
+                            <label for="booking-age" class="booking-field-label" data-translate="booking_lbl_age">Patient's Age <span class="required-star">*</span></label>
                             <div class="input-icon-wrapper">
                                 <i class="fa-solid fa-cake-candles input-icon"></i>
                                 <input type="number" id="booking-age" min="1" max="120" placeholder="Age in years" required class="booking-input">
                             </div>
-                            <span class="error-msg" id="booking-age-error">Please enter a valid age (1-120)</span>
+                            <span class="error-msg" id="booking-age-error" data-translate="booking_err_age">Please enter a valid age (1-120)</span>
                         </div>
 
                         <!-- Gender Select -->
                         <div class="form-group">
-                            <label for="booking-gender" class="booking-field-label">Gender <span class="required-star">*</span></label>
+                            <label for="booking-gender" class="booking-field-label" data-translate="booking_lbl_gender">Gender <span class="required-star">*</span></label>
                             <div class="input-icon-wrapper">
                                 <i class="fa-solid fa-venus-mars input-icon"></i>
                                 <select id="booking-gender" required class="booking-input select-input">
-                                    <option value="" disabled selected>Select Gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="other">Other</option>
+                                    <option value="" disabled selected data-translate="booking_opt_gender_default">Select Gender</option>
+                                    <option value="male" data-translate="booking_opt_male">Male</option>
+                                    <option value="female" data-translate="booking_opt_female">Female</option>
+                                    <option value="other" data-translate="booking_opt_other">Other</option>
                                 </select>
                             </div>
-                            <span class="error-msg" id="booking-gender-error">Please select a gender</span>
+                            <span class="error-msg" id="booking-gender-error" data-translate="booking_err_gender">Please select a gender</span>
                         </div>
 
                         <!-- Preferred Date -->
                         <div class="form-group">
-                            <label for="booking-date" class="booking-field-label">Preferred Date <span class="required-star">*</span></label>
+                            <label for="booking-date" class="booking-field-label" data-translate="booking_lbl_date">Preferred Date <span class="required-star">*</span></label>
                             <div class="input-icon-wrapper">
                                 <i class="fa-solid fa-calendar-day input-icon"></i>
                                 <input type="date" id="booking-date" required class="booking-input">
                             </div>
-                            <span class="error-msg" id="booking-date-error">Please choose an appointment date</span>
+                            <span class="error-msg" id="booking-date-error" data-translate="booking_err_date">Please choose an appointment date</span>
                         </div>
 
                         <!-- Preferred Time Slot -->
                         <div class="form-group">
-                            <label for="booking-slot" class="booking-field-label">Preferred Shift Slot <span class="required-star">*</span></label>
+                            <label for="booking-slot" class="booking-field-label" data-translate="booking_lbl_slot">Preferred Shift Slot <span class="required-star">*</span></label>
                             <div class="input-icon-wrapper">
                                 <i class="fa-solid fa-clock input-icon"></i>
                                 <select id="booking-slot" required class="booking-input select-input">
-                                    <option value="" disabled selected>Select Preferred Slot</option>
-                                    <option value="morning">Morning OPD (10:00 AM - 1:00 PM)</option>
-                                    <option value="evening">Evening OPD (5:00 PM - 8:00 PM)</option>
+                                    <option value="" disabled selected data-translate="booking_opt_slot_default">Select Preferred Slot</option>
+                                    <option value="morning" data-translate="booking_opt_morning">Morning OPD (10:00 AM - 1:00 PM)</option>
+                                    <option value="evening" data-translate="booking_opt_evening">Evening OPD (5:00 PM - 8:00 PM)</option>
                                 </select>
                             </div>
-                            <span class="error-msg" id="booking-slot-error">Please select a time slot</span>
+                            <span class="error-msg" id="booking-slot-error" data-translate="booking_err_slot">Please select a time slot</span>
                         </div>
 
                         <!-- Doctor Select -->
                         <div class="form-group">
-                            <label for="booking-doctor" class="booking-field-label">Consulting Doctor <span class="required-star">*</span></label>
+                            <label for="booking-doctor" class="booking-field-label" data-translate="booking_lbl_doctor">Consulting Doctor <span class="required-star">*</span></label>
                             <div class="input-icon-wrapper">
                                 <i class="fa-solid fa-user-doctor input-icon"></i>
                                 <select id="booking-doctor" required class="booking-input select-input">
-                                    <option value="" disabled selected>Choose Doctor</option>
-                                    <option value="rashmi">Dr. Rashmi Patil (Obstetric & Gynaecology)</option>
-                                    <option value="vaibhav">Dr. Vaibhav Patil (General Surgeon)</option>
-                                    <option value="general">General Medicine OPD Physician</option>
+                                    <option value="" disabled selected data-translate="booking_opt_doctor_default">Choose Doctor</option>
+                                    <option value="rashmi" data-translate="booking_opt_rashmi">Dr. Rashmi Patil (Obstetric & Gynaecology)</option>
+                                    <option value="vaibhav" data-translate="booking_opt_vaibhav">Dr. Vaibhav Patil (General Surgeon)</option>
+                                    <option value="general" data-translate="booking_opt_general">General Medicine OPD Physician</option>
                                 </select>
                             </div>
-                            <span class="error-msg" id="booking-doctor-error">Please choose a doctor</span>
+                            <span class="error-msg" id="booking-doctor-error" data-translate="booking_err_doctor">Please choose a doctor</span>
                         </div>
                     </div>
 
                     <!-- Symptoms Description -->
                     <div class="form-group full-width-group">
-                        <label for="booking-message" class="booking-field-label">Symptoms / Medical Concerns <span class="required-star">*</span></label>
+                        <label for="booking-message" class="booking-field-label" data-translate="booking_lbl_message">Symptoms / Medical Concerns <span class="required-star">*</span></label>
                         <textarea id="booking-message" placeholder="Describe symptoms, medical history, or details about your health issue..." rows="4" required class="booking-input textarea-input"></textarea>
-                        <span class="error-msg" id="booking-message-error">Please describe your medical concerns</span>
+                        <span class="error-msg" id="booking-message-error" data-translate="booking_err_message">Please describe your medical concerns</span>
                     </div>
 
                     <!-- Upload attachment -->
                     <div class="form-group file-group full-width-group">
-                        <label class="booking-field-label">Upload Previous Prescriptions / Reports (Optional)</label>
+                        <label class="booking-field-label" data-translate="booking_lbl_attachment">Upload Previous Prescriptions / Reports (Optional)</label>
                         <label class="file-label" id="booking-file-uploader">
-                            <i class="fa-solid fa-cloud-arrow-up"></i> Add Document
+                            <i class="fa-solid fa-cloud-arrow-up"></i> <span data-translate="booking_btn_attachment">Add Document</span>
                             <input type="file" id="booking-attachment" class="file-hidden-input">
                         </label>
-                        <span class="file-name-display" id="booking-file-name-text">No file chosen</span>
+                        <span class="file-name-display" id="booking-file-name-text" data-translate="booking_txt_no_file">No file chosen</span>
                     </div>
 
                     <!-- Submit Button -->
                     <div class="booking-submit-wrapper">
                         <button type="submit" class="btn btn-submit-enquiry booking-btn-submit" id="submit-booking-btn">
-                            <i class="fa-solid fa-shield-halved"></i> PAY RS. 250 & BOOK APPOINTMENT
+                            <i class="fa-solid fa-shield-halved"></i> <span data-translate="booking_btn_submit">PAY RS. 250 & BOOK APPOINTMENT</span>
                         </button>
                     </div>
                 </form>
@@ -320,15 +328,15 @@
                     <div class="success-icon-badge">
                         <i class="fa-solid fa-circle-check"></i>
                     </div>
-                    <h4 class="success-title">Appointment Confirmed!</h4>
+                    <h4 class="success-title" data-translate="booking_success_title">Appointment Confirmed!</h4>
                     <p class="success-text"></p>
-                    <div class="success-footer-note">
+                    <div class="success-footer-note" data-translate="booking_success_note">
                         A detailed receipt and confirmation email has been dispatched to your email address. Please present it at the hospital reception.
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- ABOUT US SECTION -->
     <section class="about-section" id="about">
@@ -910,7 +918,6 @@
                     <li><a href="#facilities"><i class="fa-solid fa-chevron-right"></i> Facilities</a></li>
                     <li><a href="#gallery"><i class="fa-solid fa-chevron-right"></i> Posts</a></li>
                     <li><a href="#reviews"><i class="fa-solid fa-chevron-right"></i> Reviews</a></li>
-                    <li><a href="https://razorpay.me/@krushnapralhadsaruk" target="_blank"><i class="fa-solid fa-chevron-right"></i> Pay Online</a></li>
                 </ul>
             </div>
 

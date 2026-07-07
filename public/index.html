@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sexology Clinic | Dr. Virendra Girase</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="logo">
+        <img src="logo.png" alt="Urja Ayurveda Logo" />
+      </a>
+      <div class="header-actions">
+        <button class="theme-toggle-btn" id="themeToggle" title="Toggle Logo Theme" aria-label="Toggle Theme">
+          <i class="ph-fill ph-palette"></i>
+        </button>
+        <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle Navigation">
+          <i class="ph-bold ph-list"></i>
+        </button>
+      </div>
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#treatments">Treatments</a>
+        <a href="#about">About</a>
+        <a href="#why-choose">Why Choose</a>
+        <a href="#video">Video</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="contact-btn"><i class="ph-fill ph-phone"></i> 8087652682</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container hero-inner">
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=800&q=80" alt="Dr. Virendra Girase" />
+        <div class="exp-badge">19+Yrs<br>of Exp</div>
+      </div>
+      <div class="hero-content">
+        <h1>DR. VIRENDRA GIRASE</h1>
+        <p class="hero-desc">Doctorate in Sexologist and Psychosexual Counselling (PhD) (Reg. No: E-8927P)</p>
+        <p class="hero-desc">Fellowship in Clinical Sexology and Psychosexual Counselling</p>
+        <p class="hero-desc">Ayurveda Consultant (Pune) (Reg. No.: I-47818A1)</p>
+        <button class="btn-book" onclick="document.getElementById('name').focus(); window.location.hash='contact';">BOOK AN APPOINTMENT</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section" id="treatments">
+    <div class="container">
+      <h2 class="section-title">Our Services and Treatments</h2>
+      <p class="section-subtitle">सेक्सोलॉजिस्ट, सेक्स थेराप�      <div class="services-grid">
+        <div class="service-card">
+          <i class="ph-fill ph-heartbeat"></i>
+          <div class="service-card-title">Erectile Dysfunction (ED)</div>
+        </div>
+        <div class="service-card">
+          <i class="ph-fill ph-clock"></i>
+          <div class="service-card-title">Premature Ejaculation (PE)</div>
+        </div>
+        <div class="service-card">
+          <i class="ph-fill ph-battery-warning-vertical"></i>
+          <div class="service-card-title">Low Sexual Desire (Low Libido)</div>
+        </div>
+        <div class="service-card">
+          <i class="ph-fill ph-lightning"></i>
+          <div class="service-card-title">Male Sexual Weakness</div>
+        </div>
+        <div class="service-card">
+          <i class="ph-fill ph-brain"></i>
+          <div class="service-card-title">Performance Anxiety</div>
+        </div>
+        <div class="service-card">
+          <i class="ph-fill ph-users-three"></i>
+          <div class="service-card-title">Unconsummated Marriage</div>
+        </div>
+        <div class="service-card">
+          <i class="ph-fill ph-warning-circle"></i>
+          <div class="service-card-title">Painful Intercourse</div>
+        </div>
+        <div class="service-card">
+          <i class="ph-fill ph-baby"></i>
+          <div class="service-card-title">Infertility-related Sexual Problems</div>
+        </div>
+        <div class="service-card">
+          <i class="ph-fill ph-handshake"></i>
+          <div class="service-card-title">Relationship &amp; Marital Intimacy Issues</div>
+        </div>
+        <div class="service-card">
+          <i class="ph-fill ph-first-aid"></i>
+          <div class="service-card-title">All Types of Male Sexual Disorders</div>
+        </div>
+      </div>
+      <p class="call-to-action-text">Book Your Appointment for Happier and Satisfied Sexual Life.</p>
+    </div>
+  </section>
+
+  <!-- About Us -->
+  <section class="section" id="about">
+    <div class="container about-inner">
+      <div class="about-content">
+        <h2>About Us</h2>
+        <p>With 19 years of dedicated clinical experience, Dr. Virendra Girase is a trusted specialist in the diagnosis and treatment of male sexual health disorders. He has helped thousands of patients regain their confidence, improve intimate relationships, and enjoy a healthier, happier married life through ethical, confidential, and personalized treatment.</p>
+        
+        <p>Understanding that sexual health is a sensitive subject, Dr. Girase provides a private, non-judgmental, and compassionate environment where every patient receives personalized attention and evidence-based treatment.</p>
+        <p>His focus is not only on treating the condition but also on restoring confidence, strengthening relationships, and improving overall quality of life.</p>
+      </div>
+      <div class="about-image">
+        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=400&q=80" alt="Dr. Virendra Girase" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="why-choose-section" id="why-choose">
+    <div class="container">
+      <h2 class="section-title">Why Choose Dr. Virendra Girase?</h2>
+      <p class="section-subtitle">India's leading sexology clinic providing scientific, confidential, and highly effective clinical solutions.</p>
+      
+      <div class="why-choose-grid">
+        <div class="why-choose-card">
+          <div class="why-choose-icon">
+            <i class="ph-fill ph-briefcase"></i>
+          </div>
+          <h3>19+ Years Experience</h3>
+          <p>Over 19 years of dedicated clinical practice, delivering successful diagnostic and treatment outcomes.</p>
+        </div>
+        <div class="why-choose-card">
+          <div class="why-choose-icon">
+            <i class="ph-fill ph-stethoscope"></i>
+          </div>
+          <h3>Expert Sexology Specialist</h3>
+          <p>Advanced qualifications (M.S., P.G. Diploma, PhD in Sexology) offering world-class male sexual disorder treatments.</p>
+        </div>
+        <div class="why-choose-card">
+          <div class="why-choose-icon">
+            <i class="ph-fill ph-shield-check"></i>
+          </div>
+          <h3>100% Confidentiality</h3>
+          <p>Complete discretion and privacy in a comfortable, non-judgmental environment for all patient interactions.</p>
+        </div>
+        <div class="why-choose-card">
+          <div class="why-choose-icon">
+            <i class="ph-fill ph-flask"></i>
+          </div>
+          <h3>Scientific & Ethical Care</h3>
+          <p>Result-oriented treatments and authentic, safe Ayurvedic formulations with zero side effects.</p>
+        </div>
+        <div class="why-choose-card">
+          <div class="why-choose-icon">
+            <i class="ph-fill ph-heartbeat"></i>
+          </div>
+          <h3>Comprehensive Wellness</h3>
+          <p>Addressing the physical, mental, and relational aspects of sexual health to ensure complete restoration.</p>
+        </div>
+        <div class="why-choose-card">
+          <div class="why-choose-icon">
+            <i class="ph-fill ph-users"></i>
+          </div>
+          <h3>Trusted by Millions</h3>
+          <p>Successfully treated over 1,000,000+ patients across India, restoring confidence and happy marriages.</p>
+        </div>
+      </div>
+      
+      <div class="why-choose-cta">
+        <p>Take the first step toward a healthier, happier, and more fulfilling life.</p>
+        <button class="btn-book" onclick="document.getElementById('name').focus(); window.location.hash='contact';">Schedule Your Consultation</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section class="section bg-gray">
+    <div class="container">
+      <h2 class="section-title">Our Certifications</h2>
+      <div class="cert-grid">
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.36 PM (1).jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.36 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.37 PM (1).jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.37 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.38 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.39 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.40 PM (1).jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.40 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.45 PM (1).jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.45 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.46 PM (1).jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.46 PM (2).jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.46 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.47 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.48 PM (1).jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.48 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.49 PM (1).jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.49 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.50 PM (1).jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.50 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.51 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.52 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.53 PM (1).jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.53 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.54 PM (1).jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.54 PM (2).jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.54 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.55 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.56 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.58 PM (1).jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.58 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.59 PM (1).jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.46.59 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.47.00 PM (1).jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.47.00 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.47.01 PM (1).jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.47.01 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.47.02 PM (1).jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.47.02 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.47.03 PM.jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.47.04 PM (1).jpeg" alt="Certificate" />
+        <img src="certificates/WhatsApp Image 2026-07-07 at 2.47.04 PM.jpeg" alt="Certificate" />
+      </div>
+      <div style="text-align: center; margin-top: 30px;">
+        <button id="showMoreCertsBtn" class="btn-book">Read More</button>
+      </div>
+      
+      <p class="call-to-action-text" style="margin-top: 40px;">Book Your Appointment for Happier and Satisfied Sexual Life.</p>
+      
+      <!-- Feature Grid -->
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="feature-icon"><i class="ph-fill ph-check-circle"></i></div>
+          <div class="feature-text">19+ Years of<br>Clinical Experience</div>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon"><i class="ph-fill ph-medal"></i></div>
+          <div class="feature-text">India's No. 1 Sexologist Clinic</div>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon"><i class="ph-fill ph-leaf"></i></div>
+          <div class="feature-text">100% Ayurvedic Treatment</div>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon"><i class="ph-fill ph-shield-check"></i></div>
+          <div class="feature-text">100% Safe & Effective Treatment</div>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon"><i class="ph-fill ph-star"></i></div>
+          <div class="feature-text">19+ Years Of Experience</div>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon"><i class="ph-fill ph-users"></i></div>
+          <div class="feature-text">Successfully Treated,<br>1,000,000 + Patients</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Videos -->
+  <section class="section bg-gray" id="video" style="padding-top: 0;">
+    <div class="container">
+      <h2 class="section-title">Dr. Virendra Girase - Sexology Clinic</h2>
+      <div class="video-grid">
+        <div class="video-card">
+          <img src="https://placehold.co/600x400/333/fff?text=Video+1" alt="Video Thumbnail" />
+          <i class="ph-fill ph-play-circle play-btn"></i>
+        </div>
+        <div class="video-card">
+          <img src="https://placehold.co/600x400/333/fff?text=Video+2" alt="Video Thumbnail" />
+          <i class="ph-fill ph-play-circle play-btn"></i>
+        </div>
+        <div class="video-card">
+          <img src="https://placehold.co/600x400/333/fff?text=Video+3" alt="Video Thumbnail" />
+          <i class="ph-fill ph-play-circle play-btn"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials-section">
+    <div class="container testi-inner">
+      <h2>Testimonials</h2>
+      <div class="testimonials-carousel">
+        <button class="carousel-control prev-btn" id="prevTestiBtn" aria-label="Previous Testimonial">
+          <i class="ph-bold ph-caret-left"></i>
+        </button>
+        <div class="carousel-track-container">
+          <div class="carousel-track">
+            <!-- Slide 1 -->
+            <div class="testimonial-slide active">
+              <div class="quote-icon"><i class="ph-fill ph-quotes"></i></div>
+              <p class="testi-text">"I traveled from Dhule to Nashik to meet Dr. Virendra Girase, and it was worth it. His treatments are effective, and I am grateful for the improvement in my health. Thank you, doctor, for the care and support!"</p>
+              <div class="testi-author">
+                <strong>Ankush Thamke</strong>
+                <span>Dhule (Patient)</span>
+              </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="testimonial-slide">
+              <div class="quote-icon"><i class="ph-fill ph-quotes"></i></div>
+              <p class="testi-text">"After struggling for years, the Ayurvedic treatment here completely restored my confidence. The entire process was very professional and discreet."</p>
+              <div class="testi-author">
+                <strong>Ramesh P.</strong>
+                <span>Mumbai (Patient)</span>
+              </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="testimonial-slide">
+              <div class="quote-icon"><i class="ph-fill ph-quotes"></i></div>
+              <p class="testi-text">"Dr. Virendra Girase is extremely knowledgeable. The results were visible within weeks of starting the herbal medicines. Highly recommended!"</p>
+              <div class="testi-author">
+                <strong>Sunil M.</strong>
+                <span>Pune (Patient)</span>
+              </div>
+            </div>
+            <!-- Slide 4 -->
+            <div class="testimonial-slide">
+              <div class="quote-icon"><i class="ph-fill ph-quotes"></i></div>
+              <p class="testi-text">"The virtual consultation and prompt delivery of Ayurvedic medicines made it so easy. Dr. Virendra Girase's course completely solved my issue within 2 months. Infinite thanks to the team."</p>
+              <div class="testi-author">
+                <strong>Vijay K.</strong>
+                <span>Nashik (Patient)</span>
+              </div>
+            </div>
+            <!-- Slide 5 -->
+            <div class="testimonial-slide">
+              <div class="quote-icon"><i class="ph-fill ph-quotes"></i></div>
+              <p class="testi-text">"I was very hesitant to talk about my marital intimacy problems, but Dr. Girase made me feel extremely comfortable. His approach is highly professional and scientific."</p>
+              <div class="testi-author">
+                <strong>Rajesh S.</strong>
+                <span>Jalgaon (Patient)</span>
+              </div>
+            </div>
+            <!-- Slide 6 -->
+            <div class="testimonial-slide">
+              <div class="quote-icon"><i class="ph-fill ph-quotes"></i></div>
+              <p class="testi-text">"After trying multiple clinics with no luck, the Ayurvedic solutions here worked wonders. Dr. Virendra Girase is definitely the best sexologist in Maharashtra."</p>
+              <div class="testi-author">
+                <strong>Mahendra G.</strong>
+                <span>Sambhajinagar (Patient)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control next-btn" id="nextTestiBtn" aria-label="Next Testimonial">
+          <i class="ph-bold ph-caret-right"></i>
+        </button>
+        <div class="carousel-dots" id="carouselDots">
+          <!-- Dots will be generated dynamically -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section bg-gray" id="faq">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-container">
+        <div class="faq-item">
+          <h3 class="faq-question">Are the treatments 100% Ayurvedic and safe?</h3>
+          <p class="faq-answer">Yes, all our treatments are purely Ayurvedic, natural, and clinically proven with zero side effects.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question">Is the consultation strictly confidential?</h3>
+          <p class="faq-answer">Absolutely. We maintain 100% privacy and confidentiality for all our patients.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question">Do you offer online consultations?</h3>
+          <p class="faq-answer">Yes, we provide online consultations for out-of-town patients. You can book an appointment and we will reach out via video/audio call.</p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question">How long does it take to see results?</h3>
+          <p class="faq-answer">Results vary depending on the condition and severity, but many patients report significant improvement within the first few weeks of starting the treatment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="section">
+    <div class="container">
+      <div class="stats-grid">
+        <div>
+          <i class="ph-fill ph-smiley stat-icon"></i>
+          <div class="stat-num">1M</div>
+          <p>Happy Customer</p>
+        </div>
+        <div>
+          <i class="ph-fill ph-user-plus stat-icon"></i>
+          <div class="stat-num">1M +</div>
+          <p>Patients Treated</p>
+        </div>
+        <div>
+          <i class="ph-fill ph-chart-line-up stat-icon"></i>
+          <div class="stat-num">19+</div>
+          <p>Years of Experience</p>
+        </div>
+        <div>
+          <i class="ph-fill ph-star stat-icon"></i>
+          <div class="stat-num">3.0</div>
+          <p>Google Rating</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Locations and Booking Form -->
+  <section class="section bg-gray" id="contact">
+    <div class="container">
+      <p class="call-to-action-text">Book Your Appointment for Happier and Satisfied Sexual Life.</p>
+      <h2 class="section-title" style="margin-bottom: 40px;">Clinic Location</h2>
+      
+      <div class="locations-grid">
+        <div class="location-card">
+          <div class="loc-image-wrap">
+            <img src="https://images.unsplash.com/photo-1566552881560-0be862a7c445?auto=format&fit=crop&w=600&q=80" alt="Mumbai - Gateway of India" />
+            <div class="loc-phone"><i class="ph-fill ph-phone"></i> 8087652682</div>
+          </div>
+          <div class="loc-details">
+            <h3>Main Branch: Mumbai</h3>
+            <p>O. H. I. Diagnostic Center,<br>12/8 A, Kohinoor Mill Compound,<br>Mahatma Jyotiba Phule Road,<br>Naigaon, Dadar (East), Mumbai - 400014</p>
+          </div>
+        </div>
+        <div class="location-card">
+          <div class="loc-image-wrap">
+            <img src="https://images.unsplash.com/photo-1595658658481-d53d3f999875?auto=format&fit=crop&w=600&q=80" alt="Pune - Shaniwar Wada" />
+            <div class="loc-phone"><i class="ph-fill ph-phone"></i> 8087652682</div>
+          </div>
+          <div class="loc-details">
+            <h3>Sub Branch: Pune</h3>
+            <p>Waghya Clinic, 3rd Floor, Akruti Chamber,<br>Laxminarayan Talkies Chowk,<br>Swargate, Pune - 411037</p>
+          </div>
+        </div>
+        <div class="location-card">
+          <div class="loc-image-wrap">
+            <img src="https://imgs.search.brave.com/dWHs2w_CfjIyIYe1SaPjVHjA9caE9LV5NTBulCTXGN4/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zN2Fw/MS5zY2VuZTcuY29t/L2lzL2ltYWdlL2lu/Y3JlZGlibGVpbmRp/YS80LWdhbmRoaS1y/ZXNlYXJjaC1mb3Vu/ZGF0aW9uLWphbGdh/b24tbWFoYXJhc2h0/cmEtY2l0eS1oZXJv/LW5ldz9xbHQ9ODIm/dHM9MTc0MjE3NjUz/OTQ5NQ" alt="Jalgaon - Gandhi Research Foundation" />
+            <div class="loc-phone"><i class="ph-fill ph-phone"></i> 8087652682</div>
+          </div>
+          <div class="loc-details">
+            <h3>Sub Branch: Jalgaon</h3>
+            <p>Hotel Ram, Bandi Check Naka,<br>Opposite Bhaskar Market,<br>Behind Chandak Eye Hospital Road,<br>Jalgaon - 425001</p>
+          </div>
+        </div>
+      </div>
+      <p style="text-align: center; margin-top: 50px; margin-bottom: 50px; font-weight: bold; font-size: 1.2rem; color: var(--primary);">Strictly by prior appointment only on 8087652682</p>
+
+      <!-- Book Appointment Form - Functional -->
+      <div class="booking-form-wrapper">
+        <h2 class="section-title">Book Your Appointment</h2>
+        <form id="bookingForm" class="booking-form">
+          <div class="input-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div class="input-row">
+            <div class="input-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required />
+            </div>
+            <div class="input-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+          </div>
+          <div class="input-row">
+            <div class="input-group">
+              <label for="age">Age</label>
+              <input type="number" id="age" name="age" min="14" required />
+            </div>
+            <div class="input-group">
+              <label for="gender">Gender</label>
+              <select id="gender" name="gender" required>
+                <option value="">Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-row">
+            <div class="input-group">
+              <label for="date">Preferred Date</label>
+              <input type="date" id="date" name="date" required />
+            </div>
+            <div class="input-group">
+              <label for="timeSlot">Time Slot</label>
+              <select id="timeSlot" name="timeSlot" required>
+                <option value="">Select</option>
+                <option value="Morning">Morning</option>
+                <option value="Evening">Evening</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-group" style="display: none;">
+            <label for="doctor">Consulting Doctor</label>
+            <select id="doctor" name="doctor" required>
+              <option value="Dr. Virendra Girase" selected>Dr. Virendra Girase</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="message">Message / Symptoms (Optional)</label>
+            <textarea id="message" name="message" rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn-book" style="width: 100%;">Pay Rs. 250 & Confirm Booking</button>
+          <p id="statusMessage" style="text-align: center; margin-top: 10px; font-weight: 500;"></p>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h3>Sexology Clinic</h3>
+        <p>Expert in Male Sexual Health Disorders.</p>
+        <p>Website: <a href="http://www.sexologistdrvyas.com" style="color:#fff;">www.sexologistdrvyas.com</a></p>
+        <p>Email: <a href="mailto:rtbc.in@gmail.com" style="color:#fff;">rtbc.in@gmail.com</a></p>
+      </div>
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#treatments">Treatments</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#faq">FAQs</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contact Us</h3>
+        <p><i class="ph-fill ph-phone"></i> 8087652682</p>
+        <p><i class="ph-fill ph-map-pin"></i> 12/8 A, Kohinoor Mill Compound, Naigaon, Dadar (East), Mumbai - 400014</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy;2026 Copyright Sexology Clinic. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Floating Actions -->
+  <div class="floating-actions">
+    <a href="tel:+918087652682" class="float-btn float-call">
+      <i class="ph-fill ph-phone"></i> Call Now
+    </a>
+    <a href="https://wa.me/918087652682" target="_blank" class="float-btn float-wa">
+      <i class="ph-fill ph-whatsapp-logo"></i> whatsapp
+    </a>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>

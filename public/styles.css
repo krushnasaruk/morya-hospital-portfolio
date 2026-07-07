@@ -1043,3 +1043,31 @@ body.theme-logo .testimonials-section::before {
 body.theme-logo .logo-text span {
   color: #e73072;
 }
+
+/* Footer Social Links */
+.footer-social-links {
+  margin-top: 15px;
+  display: flex;
+  gap: 12px;
+}
+
+.footer-social-links a {
+  color: #fff;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.footer-social-links a:hover {
+  color: var(--primary-gold);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+body.theme-logo .footer-social-links a:hover {
+  color: var(--primary-gold);
+}

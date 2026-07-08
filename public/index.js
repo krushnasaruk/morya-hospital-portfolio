@@ -236,3 +236,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+// --- Dynamic Client-Side Language Switcher (EN, MR, HI) ---
+function applyLanguage(lang) {
+  const translations = window.clinicTranslations[lang];
+  if (!translations) return;
+  
+  // Update button active state
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    if (btn.getAttribute('data-lang') === lang) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  // Apply translations to all tags with data-i18n
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const text = translations[key];
+    if (text) {
+      if (text.includes('<') && text.includes('>')) {
+        el.innerHTML = text;
+      } else {
+        el.textContent = text;
+      }
+    }
+  });
+  
+  document.documentElement.lang = lang;
+  localStorage.setItem('lang', lang);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const savedLang = localStorage.getItem('lang') || 'en';
+  applyLanguage(savedLang);
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const lang = e.currentTarget.getAttribute('data-lang');
+      applyLanguage(lang);
+    });
+  });
+});

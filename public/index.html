@@ -17,6 +17,11 @@
         <img src="logo.png" alt="Urja Ayurveda Logo" />
       </a>
       <div class="header-actions">
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="mr">मराठी</button>
+          <button class="lang-btn" data-lang="hi">हिंदी</button>
+        </div>
         <button class="theme-toggle-btn" id="themeToggle" title="Toggle Logo Theme" aria-label="Toggle Theme">
           <i class="ph-fill ph-palette"></i>
         </button>
@@ -25,12 +30,12 @@
         </button>
       </div>
       <nav class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#treatments">Treatments</a>
+        <a href="#home" data-i18n="nav-home">Home</a>
+        <a href="#treatments" data-i18n="nav-treatments">Treatments</a>
         <a href="#about">About</a>
-        <a href="#why-choose">Why Choose</a>
-        <a href="#video">Video</a>
-        <a href="#contact">Contact</a>
+        <a href="#why-choose" data-i18n="nav-why-choose">Why Choose</a>
+        <a href="#video" data-i18n="nav-video">Video</a>
+        <a href="#contact" data-i18n="nav-contact">Contact</a>
         <a href="#contact" class="contact-btn"><i class="ph-fill ph-phone"></i> 8087652682</a>
       </nav>
     </div>
@@ -41,16 +46,16 @@
     <div class="container hero-inner">
       <div class="hero-image">
         <img src="doctor.png" alt="Dr. Prabhu Vyas" />
-        <div class="exp-badge">37+Yrs<br>of Exp</div>
+        <div class="exp-badge" data-i18n="hero-exp-badge">37+Yrs<br>of Exp</div>
       </div>
       <div class="hero-content">
-        <h1>DR. PRABHU VYAS <br><span class="sub-title">&amp; (Team of Doctor's)</span></h1>
+        <h1 data-i18n="hero-title">DR. PRABHU VYAS <br><span class="sub-title">&amp; (Team of Doctor's)</span></h1>
         <div class="hero-credentials">
-          <p><i class="ph-fill ph-graduation-cap"></i> <span>M.S. (Sex), P.G. Diploma (Sex), PhD (Sex), P.G.D.P.G.&amp;C. (Psy)</span></p>
-          <p><i class="ph-fill ph-certificate"></i> <span>M-ASECT (Sexology), M-C-SEPI (International Sexology), M-IAAP (PSY)</span></p>
-          <p><i class="ph-fill ph-shield-check"></i> <span>Super Speciality Sexology Clinic, Fellow: Sexology Association of India</span></p>
+          <p><i class="ph-fill ph-graduation-cap"></i> <span data-i18n="hero-cred-1">M.S. (Sex), P.G. Diploma (Sex), PhD (Sex), P.G.D.P.G.&amp;C. (Psy)</span></p>
+          <p><i class="ph-fill ph-certificate"></i> <span data-i18n="hero-cred-2">M-ASECT (Sexology), M-C-SEPI (International Sexology), M-IAAP (PSY)</span></p>
+          <p><i class="ph-fill ph-shield-check"></i> <span data-i18n="hero-cred-3">Super Speciality Sexology Clinic, Fellow: Sexology Association of India</span></p>
         </div>
-        <button class="btn-book" onclick="document.getElementById('name').focus(); window.location.hash='contact';">BOOK AN APPOINTMENT</button>
+        <button class="btn-book" onclick="document.getElementById('name').focus(); window.location.hash='contact';" data-i18n="hero-cta">BOOK AN APPOINTMENT</button>
       </div>
     </div>
   </section>
@@ -58,51 +63,51 @@
   <!-- Services -->
   <section class="section" id="treatments">
     <div class="container">
-      <h2 class="section-title">Our Services and Treatments</h2>
-<p class="section-subtitle">सेक्सोलॉजिस्ट, सेक्स थेरापिस्ट, सेक्स अँड मॅरेज काउंसिलर</p>
+      <h2 class="section-title" data-i18n="services-title">Our Services and Treatments</h2>
+<p class="section-subtitle" data-i18n="services-subtitle">सेक्सोलॉजिस्ट, सेक्स थेरापिस्ट, सेक्स अँड मॅरेज काउंसिलर</p>
       <div class="services-grid">
         <div class="service-card">
           <i class="ph-fill ph-heartbeat"></i>
-          <div class="service-card-title">Erectile Dysfunction (ED)</div>
+          <div class="service-card-title" data-i18n="service-card-1">Erectile Dysfunction (ED)</div>
         </div>
         <div class="service-card">
           <i class="ph-fill ph-clock"></i>
-          <div class="service-card-title">Premature Ejaculation (PE)</div>
+          <div class="service-card-title" data-i18n="service-card-2">Premature Ejaculation (PE)</div>
         </div>
         <div class="service-card">
           <i class="ph-fill ph-battery-warning-vertical"></i>
-          <div class="service-card-title">Low Sexual Desire (Low Libido)</div>
+          <div class="service-card-title" data-i18n="service-card-3">Low Sexual Desire (Low Libido)</div>
         </div>
         <div class="service-card">
           <i class="ph-fill ph-lightning"></i>
-          <div class="service-card-title">Male Sexual Weakness</div>
+          <div class="service-card-title" data-i18n="service-card-4">Male Sexual Weakness</div>
         </div>
         <div class="service-card">
           <i class="ph-fill ph-brain"></i>
-          <div class="service-card-title">Performance Anxiety</div>
+          <div class="service-card-title" data-i18n="service-card-5">Performance Anxiety</div>
         </div>
         <div class="service-card">
           <i class="ph-fill ph-users-three"></i>
-          <div class="service-card-title">Unconsummated Marriage</div>
+          <div class="service-card-title" data-i18n="service-card-6">Unconsummated Marriage</div>
         </div>
         <div class="service-card">
           <i class="ph-fill ph-warning-circle"></i>
-          <div class="service-card-title">Painful Intercourse</div>
+          <div class="service-card-title" data-i18n="service-card-7">Painful Intercourse</div>
         </div>
         <div class="service-card">
           <i class="ph-fill ph-baby"></i>
-          <div class="service-card-title">Infertility-related Sexual Problems</div>
+          <div class="service-card-title" data-i18n="service-card-8">Infertility-related Sexual Problems</div>
         </div>
         <div class="service-card">
           <i class="ph-fill ph-handshake"></i>
-          <div class="service-card-title">Relationship &amp; Marital Intimacy Issues</div>
+          <div class="service-card-title" data-i18n="service-card-9">Relationship &amp; Marital Intimacy Issues</div>
         </div>
         <div class="service-card">
           <i class="ph-fill ph-first-aid"></i>
-          <div class="service-card-title">All Types of Male Sexual Disorders</div>
+          <div class="service-card-title" data-i18n="service-card-10">All Types of Male Sexual Disorders</div>
         </div>
       </div>
-      <p class="call-to-action-text">Book Your Appointment for Happier and Satisfied Sexual Life.</p>
+      <p class="call-to-action-text" data-i18n="services-cta-text">Book Your Appointment for Happier and Satisfied Sexual Life.</p>
     </div>
   </section>
 
@@ -110,11 +115,11 @@
   <section class="section" id="about">
     <div class="container about-inner">
       <div class="about-content">
-        <h2>About Us</h2>
+        <h2 data-i18n="about-title">About Us</h2>
         <p>With 19 years of dedicated clinical experience, Dr. Virendra Girase is a trusted specialist in the diagnosis and treatment of male sexual health disorders. He has helped thousands of patients regain their confidence, improve intimate relationships, and enjoy a healthier, happier married life through ethical, confidential, and personalized treatment.</p>
         
         <p>Understanding that sexual health is a sensitive subject, Dr. Girase provides a private, non-judgmental, and compassionate environment where every patient receives personalized attention and evidence-based treatment.</p>
-        <p>His focus is not only on treating the condition but also on restoring confidence, strengthening relationships, and improving overall quality of life.</p>
+        <p data-i18n="about-p3">His focus is not only on treating the condition but also on restoring confidence, strengthening relationships, and improving overall quality of life.</p>
       </div>
       <div class="about-image">
         <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=400&q=80" alt="Dr. Virendra Girase" />
@@ -125,7 +130,7 @@
   <!-- Why Choose Us -->
   <section class="why-choose-section" id="why-choose">
     <div class="container">
-      <h2 class="section-title">Why Choose Dr. Prabhu Vyas?</h2>
+      <h2 class="section-title" data-i18n="why-choose-title">Why Choose Dr. Prabhu Vyas?</h2>
       <p class="section-subtitle">India's leading sexology clinic providing scientific, confidential, and highly effective clinical solutions.</p>
       
       <div class="why-choose-grid">
@@ -133,8 +138,8 @@
           <div class="why-choose-icon">
             <i class="ph-fill ph-briefcase"></i>
           </div>
-          <h3>37+ Years Experience</h3>
-          <p>Over three decades of dedicated clinical practice, delivering successful diagnostic and treatment outcomes.</p>
+          <h3 data-i18n="why-card-1-title">37+ Years Experience</h3>
+          <p data-i18n="why-card-1-desc">Over three decades of dedicated clinical practice, delivering successful diagnostic and treatment outcomes.</p>
         </div>
         <div class="why-choose-card">
           <div class="why-choose-icon">
@@ -161,20 +166,20 @@
           <div class="why-choose-icon">
             <i class="ph-fill ph-heartbeat"></i>
           </div>
-          <h3>Comprehensive Wellness</h3>
-          <p>Addressing the physical, mental, and relational aspects of sexual health to ensure complete restoration.</p>
+          <h3 data-i18n="why-card-5-title">Comprehensive Wellness</h3>
+          <p data-i18n="why-card-5-desc">Addressing the physical, mental, and relational aspects of sexual health to ensure complete restoration.</p>
         </div>
         <div class="why-choose-card">
           <div class="why-choose-icon">
             <i class="ph-fill ph-users"></i>
           </div>
           <h3>Trusted by Millions</h3>
-          <p>Successfully treated over 1,000,000+ patients across India, restoring confidence and happy marriages.</p>
+          <p data-i18n="why-card-6-desc">Successfully treated over 1,000,000+ patients across India, restoring confidence and happy marriages.</p>
         </div>
       </div>
       
       <div class="why-choose-cta">
-        <p>Take the first step toward a healthier, happier, and more fulfilling life. Schedule your confidential consultation with Dr. Prabhu Vyas today.</p>
+        <p data-i18n="why-cta-text">Take the first step toward a healthier, happier, and more fulfilling life. Schedule your confidential consultation with Dr. Prabhu Vyas today.</p>
         <button class="btn-book" onclick="document.getElementById('name').focus(); window.location.hash='contact';">BOOK AN APPOINTMENT</button>
       </div>
     </div>
@@ -298,7 +303,7 @@
             <!-- Slide 1 -->
             <div class="testimonial-slide active">
               <div class="quote-icon"><i class="ph-fill ph-quotes"></i></div>
-              <p class="testi-text">"I traveled from Dhule to Nashik to meet Dr. Prabhu Vyas, and it was worth it. His treatments are effective, and I am grateful for the improvement in my health. Thank you, doctor, for the care and support!"</p>
+              <p class="testi-text" data-i18n="testi-review-1">"I traveled from Dhule to Nashik to meet Dr. Prabhu Vyas, and it was worth it. His treatments are effective, and I am grateful for the improvement in my health. Thank you, doctor, for the care and support!"</p>
               <div class="testi-author">
                 <strong>Ankush Thamke</strong>
                 <span>Dhule (Patient)</span>
@@ -316,7 +321,7 @@
             <!-- Slide 3 -->
             <div class="testimonial-slide">
               <div class="quote-icon"><i class="ph-fill ph-quotes"></i></div>
-              <p class="testi-text">"Dr. Prabhu Vyas is extremely knowledgeable. The results were visible within weeks of starting the herbal medicines. Highly recommended!"</p>
+              <p class="testi-text" data-i18n="testi-review-3">"Dr. Prabhu Vyas is extremely knowledgeable. The results were visible within weeks of starting the herbal medicines. Highly recommended!"</p>
               <div class="testi-author">
                 <strong>Sunil M.</strong>
                 <span>Pune (Patient)</span>
@@ -325,7 +330,7 @@
             <!-- Slide 4 -->
             <div class="testimonial-slide">
               <div class="quote-icon"><i class="ph-fill ph-quotes"></i></div>
-              <p class="testi-text">"The virtual consultation and prompt delivery of Ayurvedic medicines made it so easy. Dr. Prabhu Vyas's course completely solved my issue within 2 months. Infinite thanks to the team."</p>
+              <p class="testi-text" data-i18n="testi-review-4">"The virtual consultation and prompt delivery of Ayurvedic medicines made it so easy. Dr. Prabhu Vyas's course completely solved my issue within 2 months. Infinite thanks to the team."</p>
               <div class="testi-author">
                 <strong>Vijay K.</strong>
                 <span>Nashik (Patient)</span>
@@ -334,7 +339,7 @@
             <!-- Slide 5 -->
             <div class="testimonial-slide">
               <div class="quote-icon"><i class="ph-fill ph-quotes"></i></div>
-              <p class="testi-text">"I was very hesitant to talk about my marital intimacy problems, but Dr. Vyas made me feel extremely comfortable. His approach is highly professional and scientific."</p>
+              <p class="testi-text" data-i18n="testi-review-5">"I was very hesitant to talk about my marital intimacy problems, but Dr. Vyas made me feel extremely comfortable. His approach is highly professional and scientific."</p>
               <div class="testi-author">
                 <strong>Rajesh S.</strong>
                 <span>Jalgaon (Patient)</span>
@@ -343,7 +348,7 @@
             <!-- Slide 6 -->
             <div class="testimonial-slide">
               <div class="quote-icon"><i class="ph-fill ph-quotes"></i></div>
-              <p class="testi-text">"After trying multiple clinics with no luck, the Ayurvedic solutions here worked wonders. Dr. Prabhu Vyas is definitely the best sexologist in Maharashtra."</p>
+              <p class="testi-text" data-i18n="testi-review-6">"After trying multiple clinics with no luck, the Ayurvedic solutions here worked wonders. Dr. Prabhu Vyas is definitely the best sexologist in Maharashtra."</p>
               <div class="testi-author">
                 <strong>Mahendra G.</strong>
                 <span>Sambhajinagar (Patient)</span>
@@ -418,7 +423,7 @@
   <section class="section bg-gray" id="contact">
     <div class="container">
       <p class="call-to-action-text">Book Your Appointment for Happier and Satisfied Sexual Life.</p>
-      <h2 class="section-title" style="margin-bottom: 40px;">Clinic Location</h2>
+      <h2 class="section-title" style="margin-bottom: 40px;" data-i18n="locations-title">Clinic Location</h2>
       
       <div class="locations-grid">
         <div class="location-card">
@@ -427,8 +432,8 @@
             <div class="loc-phone"><i class="ph-fill ph-phone"></i> 8087652682</div>
           </div>
           <div class="loc-details">
-            <h3>मुख्य शाखा : मुंबई</h3>
-            <p>ओ. हि. आय. डायग्नोस्टिक सेंटर,<br>१२/८ अ, कोहिनूर मिल कंपाऊंड,<br>महात्मा ज्योतिबा फुले मार्ग,<br>नायगाव, दादर (ईस्ट), मुंबई – ४०००१४</p>
+            <h3 data-i18n="loc-mumbai-header">मुख्य शाखा : मुंबई</h3>
+            <p data-i18n="loc-mumbai-address">ओ. हि. आय. डायग्नोस्टिक सेंटर,<br>१२/८ अ, कोहिनूर मिल कंपाऊंड,<br>महात्मा ज्योतिबा फुले मार्ग,<br>नायगाव, दादर (ईस्ट), मुंबई – ४०००१४</p>
           </div>
         </div>
         <div class="location-card">
@@ -437,8 +442,8 @@
             <div class="loc-phone"><i class="ph-fill ph-phone"></i> 8087652682</div>
           </div>
           <div class="loc-details">
-            <h3>उप शाखा : पुणे</h3>
-            <p>वाघ्या क्लिनिक, तिसरा मजला, आकृती चेंबर,<br>लक्ष्मीनारायण टॉकीज चौक,<br>स्वारगेट, पुणे – ४११०३७</p>
+            <h3 data-i18n="loc-pune-header">उप शाखा : पुणे</h3>
+            <p data-i18n="loc-pune-address">वाघ्या क्लिनिक, तिसरा मजला, आकृती चेंबर,<br>लक्ष्मीनारायण टॉकीज चौक,<br>स्वारगेट, पुणे – ४११०३७</p>
           </div>
         </div>
         <div class="location-card">
@@ -447,57 +452,57 @@
             <div class="loc-phone"><i class="ph-fill ph-phone"></i> 8087652682</div>
           </div>
           <div class="loc-details">
-            <h3>उप शाखा : जळगाव</h3>
-            <p>राम हॉटेल बांडी चेकनाका,<br>भास्कर मार्केट समोर,<br>चांडक डोळ्यांचे हॉस्पिटलच्या मागील रोड,<br>जळगाव – ४२५००१</p>
+            <h3 data-i18n="loc-jalgaon-header">उप शाखा : जळगाव</h3>
+            <p data-i18n="loc-jalgaon-address">राम हॉटेल बांडी चेकनाका,<br>भास्कर मार्केट समोर,<br>चांडक डोळ्यांचे हॉस्पिटलच्या मागील रोड,<br>जळगाव – ४२५००१</p>
           </div>
         </div>
       </div>
-      <p style="text-align: center; margin-top: 50px; margin-bottom: 50px; font-weight: bold; font-size: 1.2rem; color: var(--primary);">Strictly by prior appointment only on 8087652682</p>
+      <p style="text-align: center; margin-top: 50px; margin-bottom: 50px; font-weight: bold; font-size: 1.2rem; color: var(--primary);"><span data-i18n="locations-appointment-banner">Strictly by prior appointment only on 8087652682</span></p>
 
       <!-- Book Appointment Form - Functional -->
       <div class="booking-form-wrapper">
-        <h2 class="section-title">Book Your Appointment</h2>
+        <h2 class="section-title" data-i18n="booking-form-title">Book Your Appointment</h2>
         <form id="bookingForm" class="booking-form">
           <div class="input-group">
-            <label for="name">Full Name</label>
+            <label for="name" data-i18n="booking-label-name">Full Name</label>
             <input type="text" id="name" name="name" required />
           </div>
           <div class="input-row">
             <div class="input-group">
-              <label for="phone">Phone Number</label>
+              <label for="phone" data-i18n="booking-label-phone">Phone Number</label>
               <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required />
             </div>
             <div class="input-group">
-              <label for="email">Email Address</label>
+              <label for="email" data-i18n="booking-label-email">Email Address</label>
               <input type="email" id="email" name="email" required />
             </div>
           </div>
           <div class="input-row">
             <div class="input-group">
-              <label for="age">Age</label>
+              <label for="age" data-i18n="booking-label-age">Age</label>
               <input type="number" id="age" name="age" min="14" required />
             </div>
             <div class="input-group">
-              <label for="gender">Gender</label>
+              <label for="gender" data-i18n="booking-label-gender">Gender</label>
               <select id="gender" name="gender" required>
-                <option value="">Select</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
+                <option value="" data-i18n="booking-gender-select">Select</option>
+                <option value="Male" data-i18n="booking-gender-male">Male</option>
+                <option value="Female" data-i18n="booking-gender-female">Female</option>
+                <option value="Other" data-i18n="booking-gender-other">Other</option>
               </select>
             </div>
           </div>
           <div class="input-row">
             <div class="input-group">
-              <label for="date">Preferred Date</label>
+              <label for="date" data-i18n="booking-label-date">Preferred Date</label>
               <input type="date" id="date" name="date" required />
             </div>
             <div class="input-group">
-              <label for="timeSlot">Time Slot</label>
+              <label for="timeSlot" data-i18n="booking-label-timeslot">Time Slot</label>
               <select id="timeSlot" name="timeSlot" required>
-                <option value="">Select</option>
-                <option value="Morning">Morning</option>
-                <option value="Evening">Evening</option>
+                <option value="" data-i18n="booking-timeslot-select">Select</option>
+                <option value="Morning" data-i18n="booking-timeslot-morning">Morning</option>
+                <option value="Evening" data-i18n="booking-timeslot-evening">Evening</option>
               </select>
             </div>
           </div>
@@ -508,7 +513,7 @@
             </select>
           </div>
           <div class="input-group">
-            <label for="message">Message / Symptoms (Optional)</label>
+            <label for="message" data-i18n="booking-label-message">Message / Symptoms (Optional)</label>
             <textarea id="message" name="message" rows="3"></textarea>
           </div>
           <button type="submit" class="btn-book" style="width: 100%;">Pay Rs. 250 & Confirm Booking</button>
@@ -524,8 +529,8 @@
     <div class="container footer-grid">
       <div class="footer-col">
         <h3>Sexology Clinic</h3>
-        <p>Dr. Prabhu Vyas &amp; (Team of Doctor's)</p>
-        <p>Super Speciality Sexology Clinic</p>
+        <p data-i18n="footer-desc">Dr. Prabhu Vyas &amp; (Team of Doctor's)</p>
+        <p data-i18n="footer-subdesc">Super Speciality Sexology Clinic</p>
         <p>Website: <a href="http://www.sexologistdrvyas.com" target="_blank" style="color:#fff;">www.sexologistdrvyas.com</a></p>
         <p>Email: <a href="mailto:rtbc.in@gmail.com" style="color:#fff;">rtbc.in@gmail.com</a></p>
         <div class="footer-social-links">
@@ -536,23 +541,23 @@
         </div>
       </div>
       <div class="footer-col">
-        <h3>Quick Links</h3>
+        <h3 data-i18n="footer-quick-links">Quick Links</h3>
         <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#treatments">Treatments</a></li>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#faq">FAQs</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#home" data-i18n="footer-link-home">Home</a></li>
+          <li><a href="#treatments" data-i18n="footer-link-treatments">Treatments</a></li>
+          <li><a href="#about" data-i18n="nav-about">About Us</a></li>
+          <li><a href="#faq" data-i18n="footer-link-faq">FAQs</a></li>
+          <li><a href="#contact" data-i18n="footer-link-contact">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h3>Contact Us</h3>
+        <h3 data-i18n="footer-contact-title">Contact Us</h3>
         <p><i class="ph-fill ph-phone"></i> 8087652682</p>
         <p><i class="ph-fill ph-map-pin"></i> 12/8 A, Kohinoor Mill Compound, Naigaon, Dadar (East), Mumbai - 400014</p>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy;2026 Copyright Sexology Clinic. All rights reserved.</p>
+      <p data-i18n="footer-copyright">&copy;2026 Copyright Sexology Clinic. All rights reserved.</p>
     </div>
   </footer>
 
@@ -566,6 +571,7 @@
     </a>
   </div>
 
+  <script src="translations.js"></script>
   <script src="index.js"></script>
 </body>
 </html>

@@ -4,10 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if(showMoreBtn && certGrid) {
     showMoreBtn.addEventListener('click', () => {
       certGrid.classList.toggle('show-all');
+      const activeLang = document.documentElement.lang || 'en';
+      const trans = window.clinicTranslations[activeLang] || {};
       if(certGrid.classList.contains('show-all')) {
-        showMoreBtn.textContent = 'Show Less';
+        showMoreBtn.textContent = trans['certs-show-less'] || 'Show Less';
       } else {
-        showMoreBtn.textContent = 'Read More';
+        showMoreBtn.textContent = trans['certs-read-more'] || 'Read More';
       }
     });
   }
@@ -160,6 +162,17 @@ function applyLanguage(lang) {
       }
     }
   });
+  
+  // Dynamically update show more certificates button text if present
+  const certGrid = document.querySelector('.cert-grid');
+  const showMoreBtn = document.getElementById('showMoreCertsBtn');
+  if (showMoreBtn && certGrid) {
+    if (certGrid.classList.contains('show-all')) {
+      showMoreBtn.textContent = translations['certs-show-less'] || 'Show Less';
+    } else {
+      showMoreBtn.textContent = translations['certs-read-more'] || 'Read More';
+    }
+  }
   
   document.documentElement.lang = lang;
   localStorage.setItem('lang', lang);

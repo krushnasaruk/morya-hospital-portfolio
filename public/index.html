@@ -55,7 +55,7 @@
           <p><i class="ph-fill ph-certificate"></i> <span data-i18n="hero-cred-2">M-ASECT (Sexology), M-C-SEPI (International Sexology), M-IAAP (PSY)</span></p>
           <p><i class="ph-fill ph-shield-check"></i> <span data-i18n="hero-cred-3">Super Speciality Sexology Clinic, Fellow: Sexology Association of India</span></p>
         </div>
-        <button class="btn-book" onclick="document.getElementById('name').focus(); window.location.hash='contact';" data-i18n="hero-cta">BOOK AN APPOINTMENT</button>
+        <button class="btn-book" onclick="window.location.hash='contact';" data-i18n="hero-cta">BOOK AN APPOINTMENT</button>
       </div>
     </div>
   </section>
@@ -180,7 +180,7 @@
       
       <div class="why-choose-cta">
         <p data-i18n="why-cta-text">Take the first step toward a healthier, happier, and more fulfilling life. Schedule your confidential consultation with Dr. Prabhu Vyas today.</p>
-        <button class="btn-book" onclick="document.getElementById('name').focus(); window.location.hash='contact';">BOOK AN APPOINTMENT</button>
+        <button class="btn-book" onclick="window.location.hash='contact';">BOOK AN APPOINTMENT</button>
       </div>
     </div>
   </section>
@@ -460,68 +460,7 @@
       <p style="text-align: center; margin-top: 50px; margin-bottom: 50px; font-weight: bold; font-size: 1.2rem; color: var(--primary);"><span data-i18n="locations-appointment-banner">Strictly by prior appointment only on 8087652682</span></p>
 
       <!-- Book Appointment Form - Functional -->
-      <div class="booking-form-wrapper">
-        <h2 class="section-title" data-i18n="booking-form-title">Book Your Appointment</h2>
-        <form id="bookingForm" class="booking-form">
-          <div class="input-group">
-            <label for="name" data-i18n="booking-label-name">Full Name</label>
-            <input type="text" id="name" name="name" required />
-          </div>
-          <div class="input-row">
-            <div class="input-group">
-              <label for="phone" data-i18n="booking-label-phone">Phone Number</label>
-              <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required />
-            </div>
-            <div class="input-group">
-              <label for="email" data-i18n="booking-label-email">Email Address</label>
-              <input type="email" id="email" name="email" required />
-            </div>
-          </div>
-          <div class="input-row">
-            <div class="input-group">
-              <label for="age" data-i18n="booking-label-age">Age</label>
-              <input type="number" id="age" name="age" min="14" required />
-            </div>
-            <div class="input-group">
-              <label for="gender" data-i18n="booking-label-gender">Gender</label>
-              <select id="gender" name="gender" required>
-                <option value="" data-i18n="booking-gender-select">Select</option>
-                <option value="Male" data-i18n="booking-gender-male">Male</option>
-                <option value="Female" data-i18n="booking-gender-female">Female</option>
-                <option value="Other" data-i18n="booking-gender-other">Other</option>
-              </select>
-            </div>
-          </div>
-          <div class="input-row">
-            <div class="input-group">
-              <label for="date" data-i18n="booking-label-date">Preferred Date</label>
-              <input type="date" id="date" name="date" required />
-            </div>
-            <div class="input-group">
-              <label for="timeSlot" data-i18n="booking-label-timeslot">Time Slot</label>
-              <select id="timeSlot" name="timeSlot" required>
-                <option value="" data-i18n="booking-timeslot-select">Select</option>
-                <option value="Morning" data-i18n="booking-timeslot-morning">Morning</option>
-                <option value="Evening" data-i18n="booking-timeslot-evening">Evening</option>
-              </select>
-            </div>
-          </div>
-          <div class="input-group" style="display: none;">
-            <label for="doctor">Consulting Doctor</label>
-            <select id="doctor" name="doctor" required>
-              <option value="Dr. Prabhu Vyas" selected>Dr. Prabhu Vyas</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label for="message" data-i18n="booking-label-message">Message / Symptoms (Optional)</label>
-            <textarea id="message" name="message" rows="3"></textarea>
-          </div>
-          <button type="submit" class="btn-book" style="width: 100%;">Pay Rs. 250 & Confirm Booking</button>
-          <p id="statusMessage" style="text-align: center; margin-top: 10px; font-weight: 500;"></p>
-        </form>
-      </div>
-
-    </div>
+      
   </section>
 
   <!-- Footer -->
